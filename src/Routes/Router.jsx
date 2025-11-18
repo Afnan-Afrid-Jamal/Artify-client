@@ -8,6 +8,7 @@ import ExploreArtworkPage from "../Pages/ExploreArtworkPage";
 import ArtworkDetailsPage from "../Pages/ArtworkDetailsPage";
 import MyGalleryPage from "../Pages/MyGalleryPage";
 import MyFavoritesPage from "../Pages/MyFavoritesPage";
+import ErrorPage from "../Pages/ErrorPage";
 
 const router = createBrowserRouter([
     {
@@ -54,7 +55,7 @@ const router = createBrowserRouter([
     },
     {
         path: "*",
-        element: <div>Error 404</div>,
+        element: <ErrorPage></ErrorPage>,
     },
 ]);
 export default router;

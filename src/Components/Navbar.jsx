@@ -87,8 +87,8 @@ const Navbar = () => {
                             {navLinks.map(({ path, label }) => renderNavLink(path, label, true))}
 
                             <LightAndDarkMode />
-                            <Link className='btn bg-gradient-to-r from-purple-600 via-purple-700 to-violet-800 text-[#E5E7EB] hover:text-white hover:bg-white/10 w-full'>Login</Link>
-                            <Link className='btn bg-gradient-to-r from-purple-600 via-purple-700 to-violet-800 text-[#E5E7EB] hover:text-white hover:bg-white/10 w-full'>Register</Link>
+                            <Link to="/login" className='btn bg-gradient-to-r from-purple-600 via-purple-700 to-violet-800 text-[#E5E7EB] hover:text-white hover:bg-white/10 w-full'>Login</Link>
+                            <Link to="/register" className='btn bg-gradient-to-r from-purple-600 via-purple-700 to-violet-800 text-[#E5E7EB] hover:text-white hover:bg-white/10 w-full'>Register</Link>
                         </ul>
                     </div>
 
@@ -118,12 +118,12 @@ const Navbar = () => {
 
 
                     <div className="hidden lg:flex items-center gap-3">
-                        <button className="btn btn-ghost text-[#E5E7EB] hover:text-white hover:bg-white/10">
+                        <Link to="/login" className="btn btn-ghost text-[#E5E7EB] hover:text-white hover:bg-white/10">
                             Login
-                        </button>
-                        <button className="btn bg-white text-purple-700 hover:bg-gray-100">
+                        </Link>
+                        <Link to="register" className="btn bg-white text-purple-700 hover:bg-gray-100">
                             Register
-                        </button>
+                        </Link>
                     </div>
                 </div>
             </div>

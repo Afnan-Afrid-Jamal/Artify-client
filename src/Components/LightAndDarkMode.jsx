@@ -18,8 +18,8 @@ const LightAndDarkMode = () => {
             body.style.backgroundColor = '#1A1A2E';
             body.style.color = '#ffffff';
         } else {
-            body.style.backgroundColor = '#FAFAFA';
-            body.style.color = '#000000';
+            body.style.backgroundColor = '#f2e3fc';  // Very light purple tint
+            body.style.color = '#1F2937';           // Professional Dark Text
         }
 
         localStorage.setItem('darkMode', isDark);
