@@ -15,12 +15,10 @@ const LightAndDarkMode = () => {
         const body = document.body;
 
         if (isDark) {
-            // Dark mode - শুধু body-র background change
-            body.style.backgroundColor = '#111827';
+            body.style.backgroundColor = '#1A1A2E';
             body.style.color = '#ffffff';
         } else {
-            // Light mode - শুধু body-র background change
-            body.style.backgroundColor = '#ffffff';
+            body.style.backgroundColor = '#FAFAFA';
             body.style.color = '#000000';
         }
 
