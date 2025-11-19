@@ -22,6 +22,8 @@ const router = createBrowserRouter([
             {
                 path: "home",
                 element: <HomePage></HomePage>,
+                loader: () => fetch("http://localhost:3000/most-recent")
+                    .then(res => res.json())
             },
             {
                 path: "login",

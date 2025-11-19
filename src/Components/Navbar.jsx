@@ -1,5 +1,6 @@
 // Navbar.jsx
 import React, { useState, useEffect } from 'react';
+// Assuming modern React Router (v6+), import from 'react-router-dom' is usually correct
 import { Link, NavLink } from 'react-router';
 import LightAndDarkMode from './LightAndDarkMode';
 
@@ -54,9 +55,11 @@ const Navbar = () => {
     );
 
     return (
+        // 🚨 FIX: Added 'relative' and a high 'z-index' ('z-50') 
+        // to the main navbar container to establish a dominant stacking context.
         <div
             data-navbar
-            className="shadow-sm bg-gradient-to-r from-purple-600 via-purple-700 to-violet-800 backdrop-blur-lg bg-opacity-95 border-b border-white/20"
+            className="shadow-sm bg-gradient-to-r from-purple-600 via-purple-700 to-violet-800 backdrop-blur-lg bg-opacity-95 border-b border-white/20 relative z-50"
         >
             <div className="navbar px-1 md:px-0 lg:px-0 max-w-full md:max-w-11/12 lg:max-w-11/12 mx-auto px-4">
 
@@ -80,9 +83,12 @@ const Navbar = () => {
                                 />
                             </svg>
                         </div>
+
+                        {/* 🚨 FIX: Using z-max for the dropdown content 
+                           (Ensure z-max is defined globally as z-index: 9999) */}
                         <ul
                             tabIndex={-1}
-                            className="menu menu-sm dropdown-content z-[1] mt-3 w-52 p-2 shadow poppins-font bg-white/90 backdrop-blur-md flex flex-col gap-y-3 rounded-box"
+                            className="menu menu-sm dropdown-content z-max mt-3 w-52 p-2 shadow poppins-font bg-white/90 backdrop-blur-md flex flex-col gap-y-3 rounded-box absolute top-full left-0"
                         >
                             {navLinks.map(({ path, label }) => renderNavLink(path, label, true))}
 
