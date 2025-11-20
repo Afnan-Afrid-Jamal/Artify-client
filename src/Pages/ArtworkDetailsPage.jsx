@@ -1,12 +1,25 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { FaHeart, FaStar } from 'react-icons/fa';
 import { useLoaderData } from 'react-router';
 
 const ArtworkDetailsPage = () => {
-
     const viewDetailsData = useLoaderData();
-    console.log(viewDetailsData)
+    const [likes, setLikes] = useState(viewDetailsData.likesCount)
 
+    // Likes increase function
+    const handleLikesCount = async (id) => {
+        try {
+            const res = await fetch(`http://localhost:3000/all-artworks/${id}/like`, {
+                method: "PATCH",
+            });
+            const updatedData = await res.json();
+
+            // UI instant update
+            setLikes(updatedData.likesCount);
+        } catch (error) {
+            console.error(error);
+        }
+    }
     return (
         <div className="max-w-7xl mx-auto px-4 py-12">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
@@ -26,8 +39,12 @@ const ArtworkDetailsPage = () => {
                         <h1 className="text-3xl md:text-4xl font-bold text-purple-600 mb-4">
                             {viewDetailsData.title}
                         </h1>
-                        <p className="text-lg mb-2"><span className="font-semibold">Medium:</span> {viewDetailsData.medium}</p>
-                        <p className="text-lg mb-6"><span className="font-semibold">Description:</span> {viewDetailsData.description}</p>
+                        <p className="text-lg mb-2">
+                            <span className="font-semibold">Medium:</span> {viewDetailsData.medium}
+                        </p>
+                        <p className="text-lg mb-6">
+                            <span className="font-semibold">Description:</span> {viewDetailsData.description}
+                        </p>
 
                         {/* Artist Info */}
                         <div className="flex items-center mb-6">
@@ -47,14 +64,17 @@ const ArtworkDetailsPage = () => {
                             <p className="text-3xl font-bold">${viewDetailsData.price}</p>
                             <div className="flex items-center gap-2">
                                 <FaHeart className="text-red-500 text-2xl" />
-                                <span className="font-medium text-xl">{viewDetailsData.likesCount}</span>
+                                <span className="font-medium text-xl">{likes}</span>
                             </div>
                         </div>
                     </div>
 
                     {/* Action Buttons */}
                     <div className="flex flex-col sm:flex-row gap-4">
-                        <button className="flex-1 bg-purple-600 hover:bg-purple-700 text-white font-semibold py-3 rounded-lg shadow-md transition duration-300">
+                        <button
+                            onClick={() => handleLikesCount(viewDetailsData._id)}
+                            className="flex-1 bg-purple-600 hover:bg-purple-700 text-white font-semibold py-3 rounded-lg shadow-md transition duration-300"
+                        >
                             <FaHeart className="inline mr-2" /> Like
                         </button>
                         <button className="flex-1 bg-white border border-purple-600 hover:bg-purple-50 text-purple-600 font-semibold py-3 rounded-lg shadow-md transition duration-300">
