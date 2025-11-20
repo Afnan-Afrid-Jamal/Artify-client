@@ -1,3 +1,4 @@
+// router.jsx
 import { createBrowserRouter } from "react-router";
 import RootLayout from "../Layout/RootLayout";
 import HomePage from "../Pages/HomePage";
@@ -9,6 +10,9 @@ import ArtworkDetailsPage from "../Pages/ArtworkDetailsPage";
 import MyGalleryPage from "../Pages/MyGalleryPage";
 import MyFavoritesPage from "../Pages/MyFavoritesPage";
 import ErrorPage from "../Pages/ErrorPage";
+import LoadingSpinner from "../Components/LoadingSpinner";
+
+
 
 const router = createBrowserRouter([
     {
@@ -17,47 +21,58 @@ const router = createBrowserRouter([
         children: [
             {
                 index: true,
-                element: <HomePage></HomePage>,
+                element: <HomePage />,
+                loader: () => {
+                    return fetch("http://localhost:3000/all-artworks/most-recent").then(res => res.json());
+                },
+                hydrateFallbackElement: <LoadingSpinner></LoadingSpinner>
             },
             {
                 path: "home",
-                element: <HomePage></HomePage>,
-                loader: () => fetch("http://localhost:3000/most-recent")
-                    .then(res => res.json())
+                element: <HomePage />,
+                loader: () => {
+                    return fetch("http://localhost:3000/all-artworks/most-recent").then(res => res.json());
+                },
+                hydrateFallbackElement: <LoadingSpinner></LoadingSpinner>
             },
             {
                 path: "login",
-                element: <LoginPage></LoginPage>,
+                element: <LoginPage />,
             },
             {
                 path: "register",
-                element: <RegistrationPage></RegistrationPage>,
+                element: <RegistrationPage />,
             },
             {
                 path: "add-artwork",
-                element: <AddArtworkPage></AddArtworkPage>,
+                element: <AddArtworkPage />,
             },
             {
                 path: "explore-artwork",
-                element: <ExploreArtworkPage></ExploreArtworkPage>,
+                element: <ExploreArtworkPage />,
             },
             {
-                path: "artwork-details",
-                element: <ArtworkDetailsPage></ArtworkDetailsPage>,
+                path: "artwork-details/:id",
+                element: <ArtworkDetailsPage />,
+                loader: ({ params }) => {
+                    return fetch(`http://localhost:3000/all-artworks/${params.id}`).then(res => res.json());
+                },
+                hydrateFallbackElement: <LoadingSpinner></LoadingSpinner>
             },
             {
                 path: "my-gallery",
-                element: <MyGalleryPage></MyGalleryPage>,
+                element: <MyGalleryPage />,
             },
             {
                 path: "my-favourites",
-                element: <MyFavoritesPage></MyFavoritesPage>,
+                element: <MyFavoritesPage />,
             },
-        ]
+        ],
     },
     {
         path: "*",
-        element: <ErrorPage></ErrorPage>,
+        element: <ErrorPage />,
     },
 ]);
+
 export default router;

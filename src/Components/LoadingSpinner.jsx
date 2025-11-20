@@ -2,30 +2,10 @@ import React from 'react';
 
 const LoadingSpinner = () => {
     return (
-        <div>
-            <div class="container">
-                <div class="dot dot-1"></div>
-                <div class="dot dot-2"></div>
-                <div class="dot dot-3"></div>
+        <div className="fixed inset-0 flex justify-center items-center bg-black bg-opacity-80 z-50">
+            <div className="p-4 animate-spin drop-shadow-2xl bg-gradient-to-bl from-pink-500 via-purple-500 to-indigo-500 md:w-48 md:h-48 h-32 w-32 aspect-square rounded-full flex justify-center items-center">
+                <div className="rounded-full h-full w-full bg-black/80 backdrop-blur-md"></div>
             </div>
-
-            <svg version="1.1" xmlns="http://www.w3.org/2000/svg">
-                <defs>
-                    <filter id="goo">
-                        <feGaussianBlur
-                            result="blur"
-                            stdDeviation="10"
-                            in="SourceGraphic"
-                        ></feGaussianBlur>
-                        <feColorMatrix
-                            values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 21 -7"
-                            mode="matrix"
-                            in="blur"
-                        ></feColorMatrix>
-                    </filter>
-                </defs>
-            </svg>
-
         </div>
     );
 };

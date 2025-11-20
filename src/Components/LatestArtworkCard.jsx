@@ -4,6 +4,7 @@ import { Link } from 'react-router';
 
 const LatestArtworkCard = ({ eachLatestArtworkdata }) => {
     const {
+        _id,
         imageURL,
         title,
         artistName,
@@ -49,15 +50,15 @@ const LatestArtworkCard = ({ eachLatestArtworkdata }) => {
                     <span className="bg-purple-300 text-purple-800 px-3 py-1 rounded-full text-sm font-semibold">{category}</span>
                     <span className="font-bold text-xl">${price}</span>
                 </div>
-                <Link to="/artwork-details">
-                    <button className="w-full mt-5 bg-purple-600 text-white font-semibold py-2.5 rounded-lg shadow-md 
-        hover:bg-purple-700 hover:shadow-lg active:bg-purple-800 active:shadow-inner 
+                <Link to={`/artwork-details/${_id}`}>
+                    <button className="w-full mt-5 bg-purple-600 text-white font-semibold py-2.5 rounded-lg shadow-md
+                hover:bg-purple-700 hover:shadow-lg active:bg-purple-800 active:shadow-inner 
         transition-all duration-200 hover:cursor-pointer">
                         View Details
                     </button>
                 </Link>
-            </div>
-        </div>
+            </div >
+        </div >
     );
 };
 

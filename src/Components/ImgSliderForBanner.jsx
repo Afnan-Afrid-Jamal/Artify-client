@@ -18,7 +18,7 @@ const ImgSliderForBanner = () => {
     };
 
     useEffect(() => {
-        fetch('http://localhost:3000/trending-artwork')
+        fetch('http://localhost:3000/all-artworks/trending-artwork')
             .then(res => res.json())
             .then(data => setArtworks(data))
             .catch(err => console.error(err));
@@ -34,21 +34,15 @@ const ImgSliderForBanner = () => {
             {/* Slider */}
             <div className="w-11/12 mx-auto">
                 <Slider {...settings}>
-                    {artworks.length > 0 ? (
-                        artworks.map((art, index) => (
-                            <div key={index} className="px-1 sm:px-2">
-                                <img
-                                    src={art.imageURL}
-                                    alt={art.title || `Artwork ${index + 1}`}
-                                    className="w-full h-48 sm:h-56 md:h-64 lg:h-72 xl:h-80 2xl:h-96 object-cover rounded-xl shadow-lg"
-                                />
-                            </div>
-                        ))
-                    ) : (
-                        <div className="flex justify-center items-center h-48 sm:h-56 md:h-64 lg:h-72 xl:h-80 2xl:h-96">
-                            <p>Loading...</p>
+                    {artworks.length > 0 && artworks.map((art, index) => (
+                        <div key={index} className="px-1 sm:px-2">
+                            <img
+                                src={art.imageURL}
+                                alt={art.title || `Artwork ${index + 1}`}
+                                className="w-full h-48 sm:h-56 md:h-64 lg:h-72 xl:h-80 2xl:h-96 object-cover rounded-xl shadow-lg"
+                            />
                         </div>
-                    )}
+                    ))}
                 </Slider>
             </div>
         </div>

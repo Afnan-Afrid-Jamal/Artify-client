@@ -1,3 +1,4 @@
+// HomePage.jsx
 import React from 'react';
 import ImgSliderForBanner from '../Components/ImgSliderForBanner';
 import "slick-carousel/slick/slick.css";
@@ -6,7 +7,8 @@ import { useLoaderData } from 'react-router';
 import LatestArtworkCard from '../Components/LatestArtworkCard'; // নিশ্চিত করো import ঠিক আছে
 
 const HomePage = () => {
-    const latestArtworkData = useLoaderData();
+    // Safe fallback: loader data না থাকলে empty array
+    const latestArtworkData = useLoaderData() || [];
 
     return (
         <div>
@@ -22,7 +24,7 @@ const HomePage = () => {
                 <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-6">
                     {latestArtworkData.map((eachLatestArtworkdata) => (
                         <LatestArtworkCard
-                            key={eachLatestArtworkdata._id.$oid}
+                            key={eachLatestArtworkdata._id?.$oid || eachLatestArtworkdata._id}
                             eachLatestArtworkdata={eachLatestArtworkdata}
                         />
                     ))}
