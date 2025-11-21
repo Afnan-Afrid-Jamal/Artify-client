@@ -112,7 +112,7 @@ const Navbar = () => {
                     </div>
 
                     <div className="hidden lg:flex items-center gap-3">
-                        <Link to="/login" className="btn btn-ghost text-[#E5E7EB] hover:text-white hover:bg-white/10">
+                        <Link to="/login" className="btn border-1 border-purple-300 btn-ghost text-[#E5E7EB] hover:text-white hover:bg-white/10">
                             Login
                         </Link>
                         <Link to="/register" className="btn bg-white text-purple-700 hover:bg-gray-100">

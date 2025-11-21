@@ -1,10 +1,52 @@
 import React, { useState } from 'react';
-import { FaHeart, FaStar } from 'react-icons/fa';
-import { useLoaderData } from 'react-router';
+import { FaCaretLeft, FaHeart, FaStar } from 'react-icons/fa';
+import { useLoaderData, useNavigate } from 'react-router';
 
 const ArtworkDetailsPage = () => {
     const viewDetailsData = useLoaderData();
     const [likes, setLikes] = useState(viewDetailsData.likesCount)
+    const navigate = useNavigate()
+
+    const handleAddFavourites = async () => {
+        const favouritesData = {
+            imageURL: viewDetailsData.imageURL,
+            title: viewDetailsData.title,
+            category: viewDetailsData.category,
+            medium: viewDetailsData.medium,
+            description: viewDetailsData.description,
+            dimensions: viewDetailsData.dimensions,
+            price: viewDetailsData.price,
+            visibility: viewDetailsData.visibility,
+            artistName: viewDetailsData.artistName,
+            artistEmail: viewDetailsData.artistEmail,
+            artistPhotoURL: viewDetailsData.artistPhotoURL,
+            likesCount: viewDetailsData.likesCount,
+            createdAt: viewDetailsData.createdAt,
+            username: "afnan",
+            userEmail: "afnan@gmail.com"
+        };
+
+        try {
+            const res = await fetch("http://localhost:3000/favourites", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(favouritesData)
+            });
+
+            const data = await res.json();
+            if (res.ok) {
+                alert("Added to favourites!");
+            } else {
+                alert("Failed to add favourite.");
+            }
+        } catch (error) {
+            console.error(error);
+            alert("Something went wrong!");
+        }
+    };
+
 
     // Likes increase function
     const handleLikesCount = async (id) => {
@@ -77,13 +119,14 @@ const ArtworkDetailsPage = () => {
                         >
                             <FaHeart className="inline mr-2" /> Like
                         </button>
-                        <button className="flex-1 bg-white border border-purple-600 hover:bg-purple-50 text-purple-600 font-semibold py-3 rounded-lg shadow-md transition duration-300">
+                        <button onClick={handleAddFavourites} className="flex-1 bg-white border border-purple-600 hover:bg-purple-50 text-purple-600 font-semibold py-3 rounded-lg shadow-md transition duration-300">
                             <FaStar className="inline mr-2" /> Add to Favorites
                         </button>
                     </div>
                 </div>
 
             </div>
+            <button onClick={() => navigate(-1)} className='btn btn-primary bg-purple-600 hover:bg-purple-700 text-white font-semibold py-3 rounded-lg shadow-md transition duration-300 flex justify-center items-center mx-auto mt-15 w-full'><FaCaretLeft size={20} />Go Back</button>
         </div>
     );
 };

@@ -10,14 +10,20 @@ const ExploreArtworkPage = () => {
     const [loading, setLoading] = useState(false);
 
 
-    const handleSearch = (event) => {
+    const handleSearch = async (event) => {
         event.preventDefault();
         const searchText = event.target.search.value;
         setLoading(true);
-        fetch(`http://localhost:3000/all-artworks/search?search=${searchText}`)
-            .then(res => res.json()).then(data => setShowData(data));
-        setLoading(false)
-    }
+
+        try {
+            const res = await fetch(`http://localhost:3000/all-artworks/search?search=${searchText}`);
+            const data = await res.json();
+            setShowData(data);
+        } finally {
+            setLoading(false);
+        }
+    };
+
 
 
 
