@@ -50,6 +50,10 @@ const router = createBrowserRouter([
             {
                 path: "explore-artwork",
                 element: <ExploreArtworkPage />,
+                loader: () => {
+                    return fetch("http://localhost:3000/all-artworks/public").then(res => res.json());
+                },
+                hydrateFallbackElement: <LoadingSpinner></LoadingSpinner>
             },
             {
                 path: "artwork-details/:id",

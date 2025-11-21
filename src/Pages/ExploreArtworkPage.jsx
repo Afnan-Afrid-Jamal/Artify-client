@@ -1,10 +1,62 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { useLoaderData } from 'react-router';
+import ExploreArtworkPageCard from '../Components/ExploreArtworkPageCard';
+import LoadingSpinner from '../Components/LoadingSpinner';
 
 const ExploreArtworkPage = () => {
+
+    const allPublicData = useLoaderData();
+    const [showData, setShowData] = useState(allPublicData);
+    const [loading, setLoading] = useState(false);
+
+
+    const handleSearch = (event) => {
+        event.preventDefault();
+        const searchText = event.target.search.value;
+        setLoading(true);
+        fetch(`http://localhost:3000/all-artworks/search?search=${searchText}`)
+            .then(res => res.json()).then(data => setShowData(data));
+        setLoading(false)
+    }
+
+
+
     return (
-        <div>
-            explore art work page
-        </div>
+        <>
+            {loading ? (
+                <LoadingSpinner></LoadingSpinner>
+            ) : (
+                <div className="max-w-11/12 mx-auto px-4 sm:px-6 lg:px-0 py-10">
+                    {/* Section Title and Search */}
+                    <div className="flex flex-col md:flex-row justify-between items-center w-full mx-auto mb-8 gap-4 md:gap-5">
+                        {/* Title */}
+                        <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-purple-600 text-center md:text-left flex-1">
+                            Explore Artworks Around You
+                        </h2>
+
+                        {/* Search Box */}
+                        <div className="mt-4 md:mt-0 shrink-0">
+                            <form onSubmit={handleSearch}>
+                                <div className="search border-2 border-purple-500 rounded-full">
+                                    <input placeholder="Search Artwork" type="text" name="search"></input>
+                                    <button type="submit">Search</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+
+                    {/* Grid of Artworks */}
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                        {showData?.map(singlePublicData => (
+                            <ExploreArtworkPageCard
+                                key={singlePublicData._id}
+                                singlePublicData={singlePublicData}
+                            />
+                        ))}
+                    </div>
+                </div>
+            )}
+        </>
     );
 };
 
