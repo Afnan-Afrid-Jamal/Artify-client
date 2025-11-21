@@ -1,10 +1,12 @@
-// Navbar.jsx
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { Link, NavLink } from 'react-router';
 import LightAndDarkMode from './LightAndDarkMode';
+import { AuthContext } from '../Provider/AuthContext';
+import UserProfileDropdown from './UserProfileDropdown';
 
 const Navbar = () => {
     const [activeLink, setActiveLink] = useState('');
+    const { user } = useContext(AuthContext);
 
     const handleSetActive = (path) => {
         setActiveLink(path);
@@ -21,14 +23,6 @@ const Navbar = () => {
             document.body.style.color = '#ffffff';
         }
     }, []);
-
-    const navLinks = [
-        { path: '/home', label: 'Home' },
-        { path: '/explore-artwork', label: 'Explore Artworks' },
-        { path: '/add-artwork', label: 'Add Artwork' },
-        { path: '/my-gallery', label: 'My Gallery' },
-        { path: '/my-favourites', label: 'My Favorites' }
-    ];
 
     const renderNavLink = (path, label, isMobile = false) => (
         <NavLink
@@ -82,7 +76,11 @@ const Navbar = () => {
                             tabIndex={0}
                             className="menu menu-sm dropdown-content mt-3 w-52 p-2 shadow bg-white/90 backdrop-blur-md flex flex-col gap-y-3 rounded-box z-50"
                         >
-                            {navLinks.map(({ path, label }) => renderNavLink(path, label, true))}
+                            {renderNavLink('/home', 'Home', true)}
+                            {renderNavLink('/explore-artwork', 'Explore Artworks', true)}
+                            {renderNavLink('/add-artwork', 'Add Artwork', true)}
+                            {renderNavLink('/my-gallery', 'My Gallery', true)}
+                            {renderNavLink('/my-favourites', 'My Favorites', true)}
 
                             <LightAndDarkMode />
                             <Link to="/login" className='btn bg-gradient-to-r from-purple-600 via-purple-700 to-violet-800 text-[#E5E7EB] hover:text-white hover:bg-white/10 w-full'>Login</Link>
@@ -101,7 +99,11 @@ const Navbar = () => {
 
                 <div className="navbar-center hidden lg:flex">
                     <ul className="menu menu-horizontal px-1 poppins-font flex gap-6">
-                        {navLinks.map(({ path, label }) => renderNavLink(path, label))}
+                        {renderNavLink('/home', 'Home')}
+                        {renderNavLink('/explore-artwork', 'Explore Artworks')}
+                        {renderNavLink('/add-artwork', 'Add Artwork')}
+                        {renderNavLink('/my-gallery', 'My Gallery')}
+                        {renderNavLink('/my-favourites', 'My Favorites')}
                     </ul>
                 </div>
 
@@ -112,12 +114,14 @@ const Navbar = () => {
                     </div>
 
                     <div className="hidden lg:flex items-center gap-3">
-                        <Link to="/login" className="btn border-1 border-purple-300 btn-ghost text-[#E5E7EB] hover:text-white hover:bg-white/10">
-                            Login
-                        </Link>
-                        <Link to="/register" className="btn bg-white text-purple-700 hover:bg-gray-100">
-                            Register
-                        </Link>
+                        {
+                            user ? (<UserProfileDropdown></UserProfileDropdown>) : (<><Link to="/login" className="btn border-1 border-purple-300 btn-ghost text-[#E5E7EB] hover:text-white hover:bg-white/10">
+                                Login
+                            </Link>
+                                <Link to="/register" className="btn bg-white text-purple-700 hover:bg-gray-100">
+                                    Register
+                                </Link></>)
+                        }
                     </div>
                 </div>
             </div>

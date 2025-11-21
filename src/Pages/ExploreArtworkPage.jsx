@@ -32,9 +32,9 @@ const ExploreArtworkPage = () => {
             {loading ? (
                 <LoadingSpinner></LoadingSpinner>
             ) : (
-                <div className="max-w-11/12 mx-auto px-4 sm:px-6 lg:px-0 py-10">
+                <div className="max-w-11/12 mx-auto px-4 sm:px-6 lg:px-0 py-10 mt-5 md:mt-20 lg:mt-20">
                     {/* Section Title and Search */}
-                    <div className="flex flex-col md:flex-row justify-between items-center w-full mx-auto mb-8 gap-4 md:gap-5">
+                    <div className="flex flex-col md:flex-row justify-between items-center w-full mx-auto gap-4 md:gap-5 mb-5 md:mb-20 lg:mb-20">
                         {/* Title */}
                         <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-purple-600 text-center md:text-left flex-1">
                             Explore Artworks Around You

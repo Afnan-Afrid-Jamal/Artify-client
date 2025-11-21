@@ -1,7 +1,26 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Link } from 'react-router';
+import { AuthContext } from '../Provider/AuthContext';
+import { FcGoogle } from 'react-icons/fc';
 
 const RegistrationPage = () => {
+
+    const { customCreateUserWithEmailAndPassword, customGoogleSignIn } = useContext(AuthContext);
+
+    const handleRegisterWithEmailAndPassword = (event) => {
+        event.preventDefault();
+        const name = event.target.name.value;
+        const email = event.target.email.value;
+        const photoURL = event.target.photoURL.value;
+        const password = event.target.password.value;
+        customCreateUserWithEmailAndPassword(email, password, name, photoURL)
+    }
+
+    const handleGoogleSignIn = () => {
+        customGoogleSignIn();
+    }
+
+
     return (
         <div className="min-h-screen py-8 px-4 flex justify-center items-start">
             <div className="w-full max-w-3xl p-8 rounded-xl border-2 border-violet-500">
@@ -15,12 +34,13 @@ const RegistrationPage = () => {
                     </p>
                 </div>
 
-                <form className="space-y-6">
+                <form onSubmit={handleRegisterWithEmailAndPassword} className="space-y-6">
                     {/* Name */}
                     <div>
                         <label className="block mb-2 font-semibold">Name</label>
                         <input
                             type="text"
+                            name="name"
                             placeholder="Enter your full name"
                             className="w-full border-2 border-violet-500 rounded-xl px-4 py-3 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-violet-300"
                         />
@@ -31,6 +51,7 @@ const RegistrationPage = () => {
                         <label className="block mb-2 font-semibold">Email</label>
                         <input
                             type="email"
+                            name="email"
                             placeholder="you@example.com"
                             className="w-full border-2 border-violet-500 rounded-xl px-4 py-3 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-violet-300"
                         />
@@ -41,6 +62,7 @@ const RegistrationPage = () => {
                         <label className="block mb-2 font-semibold">Photo URL</label>
                         <input
                             type="text"
+                            name="photoURL"
                             placeholder="https://example.com/your-photo.jpg"
                             className="w-full border-2 border-violet-500 rounded-xl px-4 py-3 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-violet-300"
                         />
@@ -51,18 +73,26 @@ const RegistrationPage = () => {
                         <label className="block mb-2 font-semibold">Password</label>
                         <input
                             type="password"
+                            name="password"
                             placeholder="Enter a strong password"
                             className="w-full border-2 border-violet-500 rounded-xl px-4 py-3 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-violet-300"
                         />
                     </div>
 
                     {/* Submit Button */}
-                    <div>
+                    <div className='flex flex-col gap-y-4'>
                         <button
                             type="submit"
                             className="w-full py-3 bg-violet-500 hover:bg-violet-600 text-white font-semibold rounded-xl transition-all duration-300 hover:cursor-pointer"
                         >
                             Sign Up
+                        </button>
+                        <button onClick={handleGoogleSignIn}
+                            type="button"
+                            className="w-full py-3 border-2 border-indigo-400 rounded-xl mt-2 flex items-center justify-center space-x-2 hover:bg-gray-100 hover:text-black hover:cursor-pointer transition-all duration-300"
+                        >
+                            <FcGoogle size={25} />
+                            <span>Continue with Google</span>
                         </button>
                     </div>
                     <p className="text-center text-gray-600 dark:text-gray-400 mt-4">

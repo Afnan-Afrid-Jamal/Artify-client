@@ -1,8 +1,24 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { FcGoogle } from 'react-icons/fc';
 import { Link } from 'react-router';
+import { AuthContext } from '../Provider/AuthContext';
 
 const LoginPage = () => {
+
+    const { customLoginWithEmailAndPassword, customGoogleSignIn } = useContext(AuthContext);
+
+    const handleLoginWithEmailAndPassword = (event) => {
+        event.preventDefault();
+        const email = event.target.email.value;
+        const password = event.target.password.value;
+        customLoginWithEmailAndPassword(email, password)
+    }
+
+    const handleGoogleLogin = () => {
+        customGoogleSignIn()
+    }
+
+
     return (
         <div className="min-h-screen py-8 px-4 flex justify-center items-start">
             <div className="w-full max-w-xl p-8 rounded-xl border-2 border-violet-500">
@@ -16,12 +32,13 @@ const LoginPage = () => {
                     </p>
                 </div>
 
-                <form className="space-y-6">
+                <form onSubmit={handleLoginWithEmailAndPassword} className="space-y-6">
                     {/* Email */}
                     <div>
                         <label className="block mb-2 font-semibold">Email</label>
                         <input
                             type="email"
+                            name="email"
                             placeholder="you@example.com"
                             className="w-full border-2 border-violet-500 rounded-xl px-4 py-3 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-violet-300"
                         />
@@ -32,6 +49,7 @@ const LoginPage = () => {
                         <label className="block mb-2 font-semibold">Password</label>
                         <input
                             type="password"
+                            name="password"
                             placeholder="Enter your password"
                             className="w-full border-2 border-violet-500 rounded-xl px-4 py-3 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-violet-300"
                         />
@@ -47,9 +65,10 @@ const LoginPage = () => {
                         </button>
                     </div>
 
+
                     {/* Google Login */}
                     <div className="text-center">
-                        <button
+                        <button onClick={handleGoogleLogin}
                             type="button"
                             className="w-full py-3 border-2 border-indigo-400 rounded-xl mt-2 flex items-center justify-center space-x-2 hover:bg-gray-100 hover:text-black hover:cursor-pointer transition-all duration-300"
                         >
