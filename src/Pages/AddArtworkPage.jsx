@@ -1,6 +1,53 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import { AuthContext } from '../Provider/AuthContext';
+import { toast } from 'react-toastify';
 
 const AddArtworkPage = () => {
+
+    const { user } = useContext(AuthContext);
+
+    const handleAddArtwork = (event) => {
+        event.preventDefault();
+
+        const artworkData = {
+            imageURL: event.target.imageURL.value,
+            title: event.target.title.value,
+            category: event.target.category.value,
+            medium: event.target.medium.value,
+            description: event.target.description.value,
+            dimensions: event.target.dimensions.value,
+            price: event.target.price.value,
+            visibility: event.target.visibility.value,
+            artistName: user.displayName,
+            artistEmail: user.email,
+            artistPhotoURL: user.photoURL,
+            likesCount: 0,
+            createdAt: new Date(),
+        };
+
+        fetch("http://localhost:3000/all-artworks", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(artworkData)
+        })
+            .then(res => res.json())
+            .then(data => {
+                toast.success("Artwork uploaded successfully!", {
+                    style: {
+                        background: "black",
+                        color: "white"
+                    }
+                })
+                event.target.reset();
+            })
+            .catch(err => toast.error(`Something went wrong! (${err})`));
+
+    };
+
+
+
     return (
         <div className="min-h-screen py-8 px-4 flex justify-center items-start">
             <div className="w-full max-w-3xl p-8 rounded-xl border-3 border-violet-500 shadow-2xl">
@@ -14,7 +61,7 @@ const AddArtworkPage = () => {
                     </p>
                 </div>
 
-                <form className="space-y-6">
+                <form onSubmit={handleAddArtwork} className="space-y-6">
 
                     {/* Artist Name & Email (first) */}
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -23,7 +70,7 @@ const AddArtworkPage = () => {
                             <input
                                 type="text"
                                 readOnly
-                                value="John Doe"
+                                value={user.displayName}
                                 className="w-full border-2 border-violet-500 rounded-xl px-4 py-3 cursor-not-allowed"
                             />
                         </div>
@@ -33,7 +80,7 @@ const AddArtworkPage = () => {
                             <input
                                 type="email"
                                 readOnly
-                                value="john@example.com"
+                                value={user.email}
                                 className="w-full border-2 border-violet-500 rounded-xl px-4 py-3 cursor-not-allowed"
                             />
                         </div>
@@ -44,6 +91,7 @@ const AddArtworkPage = () => {
                         <label className="block mb-2 font-semibold">Image URL</label>
                         <input
                             type="text"
+                            name="imageURL"
                             placeholder="https://example.com/your-artwork.jpg"
                             className="w-full border-2 border-violet-500 rounded-xl px-4 py-3 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-violet-300"
                         />
@@ -54,6 +102,7 @@ const AddArtworkPage = () => {
                         <label className="block mb-2 font-semibold">Artwork Title</label>
                         <input
                             type="text"
+                            name="title"
                             placeholder="Enter a captivating title"
                             className="w-full border-2 border-violet-500 rounded-xl px-4 py-3 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-violet-300"
                         />
@@ -63,7 +112,7 @@ const AddArtworkPage = () => {
                         {/* Category */}
                         <div>
                             <label className="block mb-2 font-semibold">Category</label>
-                            <select className="w-full border-2 border-violet-500 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-violet-300">
+                            <select name='category' className="w-full border-2 border-violet-500 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-violet-300">
                                 <option value="">Select Category</option>
                                 <option value="painting">Painting</option>
                                 <option value="digital">Digital Art</option>
@@ -79,6 +128,7 @@ const AddArtworkPage = () => {
                             <label className="block mb-2 font-semibold">Medium/Tools</label>
                             <input
                                 type="text"
+                                name="medium"
                                 placeholder="Oil Paint, Photoshop, etc."
                                 className="w-full border-2 border-violet-500 rounded-xl px-4 py-3 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-violet-300"
                             />
@@ -91,6 +141,7 @@ const AddArtworkPage = () => {
                         <textarea
                             rows="4"
                             placeholder="Tell the story behind your artwork..."
+                            name="description"
                             className="w-full border-2 border-violet-500 rounded-xl px-4 py-3 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-violet-300 resize-none"
                         />
                     </div>
@@ -102,6 +153,7 @@ const AddArtworkPage = () => {
                             <input
                                 type="text"
                                 placeholder="24x36 inches"
+                                name="dimensions"
                                 className="w-full border-2 border-violet-500 rounded-xl px-4 py-3 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-violet-300"
                             />
                         </div>
@@ -111,6 +163,7 @@ const AddArtworkPage = () => {
                             <input
                                 type="number"
                                 placeholder="0.00"
+                                name="price"
                                 className="w-full border-2 border-violet-500 rounded-xl px-4 py-3 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-violet-300"
                             />
                         </div>
@@ -119,9 +172,9 @@ const AddArtworkPage = () => {
                     {/* Visibility */}
                     <div>
                         <label className="block mb-2 font-semibold">Visibility</label>
-                        <select className="w-full border-2 border-violet-500 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-violet-300">
-                            <option value="public">Public</option>
-                            <option value="private">Private</option>
+                        <select name="visibility" className="w-full border-2 border-violet-500 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-violet-300">
+                            <option value="Public">Public</option>
+                            <option value="Private">Private</option>
                         </select>
                     </div>
 

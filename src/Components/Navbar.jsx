@@ -128,7 +128,7 @@ const Navbar = () => {
                     </div>
 
                     {/* Desktop User Buttons */}
-                    <div className="hidden md:flex lg:flex items-center ml-0 md:ml-5 lg:ml-5">
+                    <div className="hidden md:flex lg:flex items-center gap-4">
                         {user ? (
                             <UserProfileDropdown />
                         ) : (
