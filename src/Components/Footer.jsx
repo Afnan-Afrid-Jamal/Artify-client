@@ -1,5 +1,6 @@
 import React from 'react';
 import { CiFacebook, CiInstagram, CiLinkedin, CiTwitter } from "react-icons/ci";
+import { SlSocialTwitter } from 'react-icons/sl';
 
 const Footer = () => {
     return (
@@ -33,12 +34,12 @@ const Footer = () => {
                     <div className="flex flex-col items-center md:items-start lg:items-start space-y-2">
                         <p className="text-gray-300 text-center md:text-left lg:text-left">Email: info@artify.com</p>
                         <p className="text-gray-300 text-center md:text-left lg:text-left">Phone: +880 1234 567890</p>
-                        <div className="flex gap-3 mt-2 justify-center md:justify-start lg:justify-start">
+                        <div className="flex gap-6 mt-2 justify-center md:justify-start lg:justify-start items-center">
                             <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" className="link link-hover">
                                 <CiFacebook size={40} />
                             </a>
                             <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" className="link link-hover">
-                                <CiTwitter size={40} />
+                                <img src="../../public/xIconpng.png" alt="x-social media-icon" className='w-7 h-7 invert' />
                             </a>
                             <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className="link link-hover">
                                 <CiInstagram size={40} />

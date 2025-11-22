@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router';
 import { AuthContext } from '../Provider/AuthContext';
 import { FcGoogle } from 'react-icons/fc';
@@ -28,6 +28,16 @@ const RegistrationPage = () => {
                 location.state ? navigate(location.state) : navigate("/home")
             })
     }
+
+
+    // Password Validation
+    const [checkPassword, setCheckPassword] = useState("")
+
+    const hasNumber = /(?=.*\d)/.test(checkPassword);
+    const hasUppercase = /(?=.*[A-Z])/.test(checkPassword);
+    const hasLowercase = /(?=.*[a-z])/.test(checkPassword);
+    const hasSymbol = /(?=.*[@$!%*?&])/.test(checkPassword);
+    const hasMinLength = /^.{6,}$/.test(checkPassword);
 
 
     return (
@@ -87,14 +97,30 @@ const RegistrationPage = () => {
                             name="password"
                             placeholder="Enter a strong password"
                             required
+                            onChange={(event) => setCheckPassword(event.target.value)}
                             className="w-full border-2 border-violet-500 rounded-xl px-4 py-3 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-violet-300"
                         />
                     </div>
+
+                    {/* Password Validation Messages */}
+                    <div className="mt-2">
+                        {checkPassword.length > 0 && (
+                            <div className="space-y-1 text-sm text-red-600 transition-all duration-300 ease-in-out">
+                                {!hasUppercase && <p>❌ Must include at least one uppercase letter (A-Z)</p>}
+                                {!hasLowercase && <p>❌ Must include at least one lowercase letter (a-z)</p>}
+                                {!hasNumber && <p>❌ Must include at least one number (0-9)</p>}
+                                {!hasSymbol && <p>❌ Must include at least one special symbol (@, #, $, %, etc.)</p>}
+                                {!hasMinLength && <p>❌ Must be at least 6 characters long</p>}
+                            </div>
+                        )}
+                    </div>
+
 
                     {/* Submit Button */}
                     <div className='flex flex-col gap-y-4'>
                         <button
                             type="submit"
+                            disabled={!(hasUppercase && hasLowercase && hasNumber && hasSymbol && hasMinLength)}
                             className="w-full py-3 bg-violet-500 hover:bg-violet-600 text-white font-semibold rounded-xl transition-all duration-300 hover:cursor-pointer"
                         >
                             Sign Up
