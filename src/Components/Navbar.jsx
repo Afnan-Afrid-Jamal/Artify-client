@@ -52,13 +52,16 @@ const Navbar = () => {
             data-navbar
             className="shadow-sm bg-gradient-to-r from-purple-600 via-purple-700 to-violet-800 backdrop-blur-lg bg-opacity-95 border-b border-white/20 relative z-50"
         >
-            <div className="navbar px-4 md:px-0 lg:px-0 max-w-full md:max-w-11/12 lg:max-w-11/12 mx-auto">
+            <div className="navbar px-4 md:px-0 max-w-7xl mx-auto">
+
+                {/* LEFT PART */}
                 <div className="navbar-start">
-                    <div className="dropdown">
-                        <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
+                    {/* Mobile Menu Button */}
+                    <div className="dropdown lg:hidden">
+                        <div tabIndex={0} role="button" className="btn btn-ghost">
                             <svg
                                 xmlns="http://www.w3.org/2000/svg"
-                                className="text-[#E5E7EB] h-8 w-8"
+                                className="h-8 w-8 text-[#E5E7EB]"
                                 fill="none"
                                 viewBox="0 0 24 24"
                                 stroke="currentColor"
@@ -72,9 +75,10 @@ const Navbar = () => {
                             </svg>
                         </div>
 
+                        {/* Mobile Menu */}
                         <ul
                             tabIndex={0}
-                            className="menu menu-sm dropdown-content mt-3 w-52 p-2 shadow bg-white/90 backdrop-blur-md flex flex-col gap-y-3 rounded-box z-50"
+                            className="menu menu-sm dropdown-content mt-3 w-52 p-3 shadow bg-white/90 backdrop-blur-md rounded-box z-50 flex flex-col gap-y-3"
                         >
                             {renderNavLink('/home', 'Home', true)}
                             {renderNavLink('/explore-artwork', 'Explore Artworks', true)}
@@ -83,11 +87,18 @@ const Navbar = () => {
                             {renderNavLink('/my-favourites', 'My Favorites', true)}
 
                             <LightAndDarkMode />
-                            <Link to="/login" className='btn bg-gradient-to-r from-purple-600 via-purple-700 to-violet-800 text-[#E5E7EB] hover:text-white hover:bg-white/10 w-full'>Login</Link>
-                            <Link to="/register" className='btn bg-gradient-to-r from-purple-600 via-purple-700 to-violet-800 text-[#E5E7EB] hover:text-white hover:bg-white/10 w-full'>Register</Link>
+
+                            {/* If NOT logged in show buttons */}
+                            {!user && (
+                                <>
+                                    <Link to="/login" className="btn bg-purple-700 text-white w-full">Login</Link>
+                                    <Link to="/register" className="btn bg-purple-700 text-white w-full">Register</Link>
+                                </>
+                            )}
                         </ul>
                     </div>
 
+                    {/* Logo */}
                     <Link
                         to="/home"
                         data-logo
@@ -97,6 +108,7 @@ const Navbar = () => {
                     </Link>
                 </div>
 
+                {/* CENTER PART — Desktop Only */}
                 <div className="navbar-center hidden lg:flex">
                     <ul className="menu menu-horizontal px-1 poppins-font flex gap-6">
                         {renderNavLink('/home', 'Home')}
@@ -107,26 +119,39 @@ const Navbar = () => {
                     </ul>
                 </div>
 
-                <div className="navbar-end flex items-center gap-4">
-                    {/* Theme Toggle - Visible on desktop */}
+                {/* RIGHT PART */}
+                <div className="navbar-end flex items-center gap-3">
+
+                    {/* Desktop Theme Toggle */}
                     <div className="hidden lg:block">
                         <LightAndDarkMode />
                     </div>
 
+                    {/* Desktop User Buttons */}
                     <div className="hidden lg:flex items-center gap-3">
-                        {
-                            user ? (<UserProfileDropdown></UserProfileDropdown>) : (<><Link to="/login" className="btn border-1 border-purple-300 btn-ghost text-[#E5E7EB] hover:text-white hover:bg-white/10">
-                                Login
-                            </Link>
+                        {user ? (
+                            <UserProfileDropdown />
+                        ) : (
+                            <>
+                                <Link to="/login" className="btn btn-ghost text-white border border-purple-300">
+                                    Login
+                                </Link>
                                 <Link to="/register" className="btn bg-white text-purple-700 hover:bg-gray-100">
                                     Register
-                                </Link></>)
-                        }
+                                </Link>
+                            </>
+                        )}
+                    </div>
+
+                    {/* Mobile User Profile (right corner) */}
+                    <div className="lg:hidden pr-5">
+                        {user && <UserProfileDropdown />}
                     </div>
                 </div>
             </div>
         </div>
     );
+
 };
 
 export default Navbar;

@@ -11,6 +11,7 @@ import MyGalleryPage from "../Pages/MyGalleryPage";
 import MyFavoritesPage from "../Pages/MyFavoritesPage";
 import ErrorPage from "../Pages/ErrorPage";
 import LoadingSpinner from "../Components/LoadingSpinner";
+import PrivateRoute from "./PrivateRoute";
 
 
 
@@ -45,7 +46,7 @@ const router = createBrowserRouter([
             },
             {
                 path: "add-artwork",
-                element: <AddArtworkPage />,
+                element: <PrivateRoute><AddArtworkPage /></PrivateRoute>,
             },
             {
                 path: "explore-artwork",
@@ -65,11 +66,11 @@ const router = createBrowserRouter([
             },
             {
                 path: "my-gallery",
-                element: <MyGalleryPage />,
+                element: <PrivateRoute><MyGalleryPage /></PrivateRoute>,
             },
             {
                 path: "my-favourites",
-                element: <MyFavoritesPage />,
+                element: <PrivateRoute><MyFavoritesPage /></PrivateRoute>,
             },
         ],
     },

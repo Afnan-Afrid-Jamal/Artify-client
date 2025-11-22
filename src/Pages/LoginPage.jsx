@@ -1,22 +1,33 @@
-import React, { useContext } from 'react';
+import React, { useContext, useRef } from 'react';
 import { FcGoogle } from 'react-icons/fc';
-import { Link } from 'react-router';
+import { Link, useLocation, useNavigate } from 'react-router';
 import { AuthContext } from '../Provider/AuthContext';
 
 const LoginPage = () => {
 
-    const { customLoginWithEmailAndPassword, customGoogleSignIn } = useContext(AuthContext);
+    const navigate = useNavigate();
+    const location = useLocation();
+    const emailRef = useRef();
+
+    const { customLoginWithEmailAndPassword, customGoogleSignIn, handleForgetPassword } = useContext(AuthContext);
 
     const handleLoginWithEmailAndPassword = (event) => {
         event.preventDefault();
         const email = event.target.email.value;
         const password = event.target.password.value;
         customLoginWithEmailAndPassword(email, password)
+            .then(() => {
+                location.state ? navigate(location.state) : navigate("/home")
+            })
     }
 
     const handleGoogleLogin = () => {
         customGoogleSignIn()
+            .then(() => {
+                location.state ? navigate(location.state) : navigate("/home")
+            })
     }
+
 
 
     return (
@@ -40,6 +51,7 @@ const LoginPage = () => {
                             type="email"
                             name="email"
                             placeholder="you@example.com"
+                            ref={emailRef}
                             className="w-full border-2 border-violet-500 rounded-xl px-4 py-3 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-violet-300"
                         />
                     </div>
@@ -53,6 +65,11 @@ const LoginPage = () => {
                             placeholder="Enter your password"
                             className="w-full border-2 border-violet-500 rounded-xl px-4 py-3 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-violet-300"
                         />
+                    </div>
+                    <div>
+                        <button onClick={() => { handleForgetPassword(emailRef.current.value) }} type="button" className="text-sm text-right text-violet-600 font-medium hover:underline hover:cursor-pointer">
+                            Forget Password?
+                        </button>
                     </div>
 
                     {/* Login Button */}

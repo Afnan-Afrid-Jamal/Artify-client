@@ -1,9 +1,12 @@
 import React, { useContext } from 'react';
-import { Link } from 'react-router';
+import { Link, useLocation, useNavigate } from 'react-router';
 import { AuthContext } from '../Provider/AuthContext';
 import { FcGoogle } from 'react-icons/fc';
 
 const RegistrationPage = () => {
+
+    const navigate = useNavigate();
+    const location = useLocation();
 
     const { customCreateUserWithEmailAndPassword, customGoogleSignIn } = useContext(AuthContext);
 
@@ -14,10 +17,16 @@ const RegistrationPage = () => {
         const photoURL = event.target.photoURL.value;
         const password = event.target.password.value;
         customCreateUserWithEmailAndPassword(email, password, name, photoURL)
+            .then(() => {
+                location.state ? navigate(location.state) : navigate("/home")
+            })
     }
 
     const handleGoogleSignIn = () => {
-        customGoogleSignIn();
+        customGoogleSignIn()
+            .then(() => {
+                location.state ? navigate(location.state) : navigate("/home")
+            })
     }
 
 
@@ -42,6 +51,7 @@ const RegistrationPage = () => {
                             type="text"
                             name="name"
                             placeholder="Enter your full name"
+                            required
                             className="w-full border-2 border-violet-500 rounded-xl px-4 py-3 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-violet-300"
                         />
                     </div>
@@ -53,6 +63,7 @@ const RegistrationPage = () => {
                             type="email"
                             name="email"
                             placeholder="you@example.com"
+                            required
                             className="w-full border-2 border-violet-500 rounded-xl px-4 py-3 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-violet-300"
                         />
                     </div>
@@ -75,6 +86,7 @@ const RegistrationPage = () => {
                             type="password"
                             name="password"
                             placeholder="Enter a strong password"
+                            required
                             className="w-full border-2 border-violet-500 rounded-xl px-4 py-3 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-violet-300"
                         />
                     </div>

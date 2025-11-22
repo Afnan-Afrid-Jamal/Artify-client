@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { AuthContext } from "./AuthContext";
-import { createUserWithEmailAndPassword, getAuth, GoogleAuthProvider, signInWithEmailAndPassword, signInWithPopup, signOut, updateProfile } from "firebase/auth";
+import { createUserWithEmailAndPassword, getAuth, GoogleAuthProvider, sendPasswordResetEmail, signInWithEmailAndPassword, signInWithPopup, signOut, updateProfile } from "firebase/auth";
 import app from "../Firebase/firebase.config";
 import LoadingSpinner from "../Components/LoadingSpinner";
 import SweetAlert from "../Components/SweetAlert";
@@ -94,6 +94,24 @@ const AuthProvider = ({ children }) => {
     }
 
 
+    // Forget Password
+    const handleForgetPassword = (email) => {
+        const auth = getAuth();
+        if (!email) {
+            errorAlert("Please enter your email to reset the password.");
+        }
+        sendPasswordResetEmail(auth, email)
+            .then(() => {
+                successAlert(`A password reset link has been sent to your email(${email})`);
+            })
+            .catch((error) => {
+                const errorCode = error.code;
+                const errorMessage = error.message;
+                errorAlert(errorCode, errorMessage);
+            });
+    }
+
+
 
     // Logout
     const handleLogout = () => {
@@ -128,6 +146,7 @@ const AuthProvider = ({ children }) => {
         customCreateUserWithEmailAndPassword,
         customGoogleSignIn,
         customLoginWithEmailAndPassword,
+        handleForgetPassword,
         handleLogout,
     };
 
