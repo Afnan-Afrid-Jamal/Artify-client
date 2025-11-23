@@ -32,7 +32,7 @@ const ExploreArtworkPage = () => {
             {loading ? (
                 <LoadingSpinner />
             ) : (
-                <div className="max-w-11/12 min-h-screen mx-auto px-4 sm:px-6 lg:px-0 py-10 mt-5 md:mt-20 lg:mt-20">
+                <div className="max-w-11/12 mx-auto min-h-screen mx-auto px-4 sm:px-6 lg:px-0 py-10 mt-5 md:mt-20 lg:mt-20">
                     {/* Section Title and Search */}
                     <div className="flex flex-col md:flex-row justify-between items-center w-full mx-auto gap-4 md:gap-5 mb-5 md:mb-20 lg:mb-20">
                         <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-purple-600 text-center md:text-left flex-1">
@@ -49,7 +49,7 @@ const ExploreArtworkPage = () => {
                     </div>
 
                     {/* Grid of Artworks */}
-                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 items-stretch">
                         {showData && showData.length > 0 ? (
                             showData.map(singlePublicData => (
                                 <ExploreArtworkPageCard
