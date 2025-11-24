@@ -75,12 +75,7 @@ const router = createBrowserRouter([
                         <MyFavoritesPage />
                     </PrivateRoute>
                 ),
-                loader: async () => {
-                    const res = await fetch("http://localhost:3000/favourites-data");
-                    const json = await res.json();
-                    return json.data;  // <-- IMPORTANT: শুধু array return করো
-                },
-                hydrateFallbackElement: <LoadingSpinner />
+
             },
         ],
     },

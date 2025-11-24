@@ -21,7 +21,7 @@ const HomePage = () => {
                     Latest Artworks
                 </h1>
 
-                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-6 items-stretch">
+                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-6">
                     {latestArtworkData.map((eachLatestArtworkdata) => (
                         <LatestArtworkCard
                             key={eachLatestArtworkdata._id?.$oid || eachLatestArtworkdata._id}
