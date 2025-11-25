@@ -1,10 +1,14 @@
 import React, { useState } from 'react';
 import { FaCaretLeft, FaHeart, FaStar } from 'react-icons/fa';
+import { FaHeartCrack } from 'react-icons/fa6';
 import { useLoaderData, useNavigate } from 'react-router';
+import { toast } from 'react-toastify';
 
 const ArtworkDetailsPage = () => {
     const viewDetailsData = useLoaderData();
     const [likes, setLikes] = useState(viewDetailsData.likesCount)
+    const [likesBtn, setLikesBtn] = useState(true)
+    const [isAddFavouritesBtnDisable, setIsAddFavouritesBtnDisable] = useState(false)
     const navigate = useNavigate()
 
     const handleAddFavourites = async () => {
@@ -37,9 +41,19 @@ const ArtworkDetailsPage = () => {
 
             const data = await res.json();
             if (res.ok) {
-                alert("Added to favourites!");
+                toast.success("Added to favorites!", {
+                    style: {
+                        background: "#000",
+                        color: "#fff"
+                    }
+                });
             } else {
-                alert("Failed to add favourite.");
+                toast.error("Failed to add favourite.", {
+                    style: {
+                        background: "#000",
+                        color: "#fff"
+                    }
+                });
             }
         } catch (error) {
             console.error(error);
@@ -53,15 +67,37 @@ const ArtworkDetailsPage = () => {
         try {
             const res = await fetch(`http://localhost:3000/all-artworks/${id}/like`, {
                 method: "PATCH",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ action: "inc" })
             });
+
+            const updatedData = await res.json();
+            setLikes(updatedData.likesCount);
+
+        } catch (error) {
+            console.error(error);
+        }
+    };
+
+
+    // Dislike function
+    const handleDislikes = async (id) => {
+        try {
+            const res = await fetch(`http://localhost:3000/all-artworks/${id}/like`, {
+                method: "PATCH",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ action: "dec" })
+            });
+
             const updatedData = await res.json();
 
-            // UI instant update
             setLikes(updatedData.likesCount);
+
         } catch (error) {
             console.error(error);
         }
     }
+
     return (
         <div className="max-w-7xl mx-auto px-4 py-12">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
@@ -114,28 +150,61 @@ const ArtworkDetailsPage = () => {
                     {/* Action Buttons */}
                     <div className="flex flex-col sm:flex-row gap-4">
                         <button
-                            onClick={() => handleLikesCount(viewDetailsData._id)}
-                            className="flex-1 bg-purple-600 hover:bg-purple-700 text-white font-semibold py-3 rounded-lg shadow-md transition duration-300 break-words"
+                            onClick={() => {
+                                if (likesBtn) {
+                                    handleLikesCount(viewDetailsData._id)
+                                } else {
+                                    handleDislikes(viewDetailsData._id)
+                                }
+                                setLikesBtn(!likesBtn)
+                            }}
+                            className="flex-1 bg-purple-600 hover:bg-purple-700 text-white font-semibold py-3 rounded-lg shadow-md transition duration-300 break-words hover:cursor-pointer"
                         >
-                            <FaHeart className="inline mr-2" /> Like
+                            {
+                                likesBtn ? (
+                                    <div className="flex items-center justify-center gap-1">
+                                        <FaHeart className="text-xl" />
+                                        <span className="leading-none">Like</span>
+                                    </div>
+
+
+                                ) : (
+                                    <div className="flex items-center justify-center gap-1">
+                                        <FaHeartCrack className="inline mr-2" /> <span className="leading-none">Dislike</span>
+                                    </div>
+                                )
+                            }
                         </button>
+
                         <button
-                            onClick={handleAddFavourites}
-                            className="flex-1 bg-white border border-purple-600 hover:bg-purple-50 text-purple-600 font-semibold py-3 rounded-lg shadow-md transition duration-300 break-words"
+                            onClick={() => {
+                                handleAddFavourites();
+                                setIsAddFavouritesBtnDisable(true);
+                            }}
+                            className={`flex-1 bg-white border border-purple-600 hover:bg-purple-50 text-purple-600 font-semibold py-3 rounded-lg shadow-md transition duration-300 break-words hover:cursor-pointer
+        ${isAddFavouritesBtnDisable ? "opacity-30 cursor-not-allowed" : ""}
+    `}
+                            disabled={isAddFavouritesBtnDisable}
                         >
-                            <FaStar className="inline mr-2" /> Add to Favorites
+                            <FaStar className="inline mr-2" />
+                            {
+                                isAddFavouritesBtnDisable ? "Added to Favorites"
+                                    :
+                                    "Add to Favorites"
+                            }
                         </button>
+
                     </div>
                 </div>
 
-            </div>
+            </div >
             <button
                 onClick={() => navigate(-1)}
                 className='btn btn-primary bg-purple-600 hover:bg-purple-700 text-white font-semibold py-3 rounded-lg shadow-md transition duration-300 flex justify-center items-center mx-auto mt-15 w-full break-words'
             >
                 <FaCaretLeft size={20} /> Go Back
             </button>
-        </div>
+        </div >
 
     );
 };

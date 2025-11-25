@@ -32,7 +32,6 @@ const Navbar = () => {
             data-path={path}
             onClick={() => handleSetActive(path)}
             className={({ isActive }) => {
-                if (isActive) handleSetActive(path);
                 if (isMobile) {
                     return isActive
                         ? "text-[#6366F1] font-semibold"
@@ -88,7 +87,6 @@ const Navbar = () => {
 
                             <LightAndDarkMode />
 
-                            {/* If NOT logged in show buttons */}
                             {!user && (
                                 <>
                                     <Link to="/login" className="btn bg-purple-700 text-white w-full">Login</Link>
@@ -121,13 +119,10 @@ const Navbar = () => {
 
                 {/* RIGHT PART */}
                 <div className="navbar-end flex items-center gap-3">
-
-                    {/* Desktop Theme Toggle */}
                     <div className="hidden lg:block">
                         <LightAndDarkMode />
                     </div>
 
-                    {/* Desktop User Buttons */}
                     <div className="hidden md:flex lg:flex items-center gap-4">
                         {user ? (
                             <UserProfileDropdown />
@@ -143,7 +138,6 @@ const Navbar = () => {
                         )}
                     </div>
 
-                    {/* Mobile User Profile (right corner) */}
                     <div className="lg:hidden pr-5">
                         {user && <UserProfileDropdown />}
                     </div>
@@ -151,7 +145,6 @@ const Navbar = () => {
             </div>
         </div>
     );
-
 };
 
 export default Navbar;

@@ -11,8 +11,7 @@ const UserProfileDropdown = () => {
 
     if (!user) return null;
 
-    const userImageSrc = user.photoURL ||
-        `https://ui-avatars.com/api/?name=${user.displayName || user.email || "User"}&background=7e22ce&color=fff`;
+
 
     return (
         <div className="dropdown dropdown-end relative dropdown-hover delay-500">
@@ -21,7 +20,7 @@ const UserProfileDropdown = () => {
             <label tabIndex={0} className="btn btn-ghost btn-circle avatar focus:outline-none group">
                 <div className="w-10 h-10 rounded-full overflow-hidden border-2 border-purple-500 transition-all duration-300 group-hover:ring-2 group-hover:ring-purple-400">
                     <img
-                        src={userImageSrc}
+                        src={user.photoURL}
                         alt={user.displayName || "User Avatar"}
                         className="object-cover w-full h-full"
                     />
