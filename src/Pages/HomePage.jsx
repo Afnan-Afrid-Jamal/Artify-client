@@ -4,10 +4,11 @@ import ImgSliderForBanner from '../Components/ImgSliderForBanner';
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { useLoaderData } from 'react-router';
-import LatestArtworkCard from '../Components/LatestArtworkCard'; // নিশ্চিত করো import ঠিক আছে
+import LatestArtworkCard from '../Components/LatestArtworkCard';
+import TodaysCollection from '../Components/TodaysCollection';
 
 const HomePage = () => {
-    // Safe fallback: loader data না থাকলে empty array
+
     const latestArtworkData = useLoaderData() || [];
 
     return (
@@ -29,6 +30,9 @@ const HomePage = () => {
                         />
                     ))}
                 </div>
+            </div>
+            <div>
+                <TodaysCollection></TodaysCollection>
             </div>
         </div>
     );

@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import Slider from 'react-slick';
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import { Typewriter } from 'react-simple-typewriter';
+import { Link } from 'react-router';
 
 const ImgSliderForBanner = () => {
     const [artworks, setArtworks] = useState([]);
@@ -13,8 +15,8 @@ const ImgSliderForBanner = () => {
         slidesToShow: 1,
         slidesToScroll: 1,
         autoplay: true,
-        autoplaySpeed: 2000,
-        arrows: true
+        autoplaySpeed: 6500,
+        arrows: false
     };
 
     useEffect(() => {
@@ -26,25 +28,40 @@ const ImgSliderForBanner = () => {
 
     return (
         <div className="max-w-7xl mx-auto px-4 py-8">
-            {/* Heading */}
-            <h1 className="text-center text-lg sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl font-bold text-purple-500 mb-6 sm:mb-8">
-                Discover the Most Stunning and Popular Artworks Capturing Everyone’s Attention
-            </h1>
+            <Slider {...settings}>
+                {artworks.map((art, index) => (
+                    <div key={index} className="relative px-1 sm:px-2">
+                        {/* Artwork Image */}
+                        <img
+                            src={art.imageURL}
+                            alt={art.title}
+                            className="w-full h-64 sm:h-72 md:h-80 lg:h-96 xl:h-96 2xl:h-[28rem] object-cover rounded-xl shadow-lg"
+                        />
 
-            {/* Slider */}
-            <div className="w-11/12 mx-auto">
-                <Slider {...settings}>
-                    {artworks.length > 0 && artworks.map((art, index) => (
-                        <div key={index} className="px-1 sm:px-2">
-                            <img
-                                src={art.imageURL}
-                                alt={art.title || `Artwork ${index + 1}`}
-                                className="w-full h-48 sm:h-56 md:h-64 lg:h-72 xl:h-80 2xl:h-96 object-cover rounded-xl shadow-lg"
-                            />
+                        {/* Overlay */}
+                        <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent flex flex-col justify-end items-start px-6 sm:px-12 pb-10">
+                            <h1 className="text-white text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-4">
+                                <Typewriter
+                                    words={[
+                                        `Discover "${art.title}" by "${art.artistName}"`
+                                    ]}
+                                    loop={3} // Typewriter runs once per slide
+                                    cursor
+                                    cursorStyle="|"
+                                    typeSpeed={80}
+                                    deleteSpeed={10}
+                                    delaySpeed={2000} // wait 2s before deleting
+                                />
+                            </h1>
+
+                            {/* Optional CTA Button */}
+                            <Link to={`/artwork-details/${art._id}`} className="bg-purple-600 hover:bg-purple-700 text-white font-semibold py-2.5 px-5 rounded-lg shadow-md transition duration-300">
+                                View Details
+                            </Link>
                         </div>
-                    ))}
-                </Slider>
-            </div>
+                    </div>
+                ))}
+            </Slider>
         </div>
     );
 };
