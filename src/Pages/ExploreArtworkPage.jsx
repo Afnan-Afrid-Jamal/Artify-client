@@ -41,7 +41,7 @@ const ExploreArtworkPage = () => {
                         <div className="mt-4 md:mt-0 shrink-0">
                             <form onSubmit={handleSearch}>
                                 <div className="search border-2 border-purple-500 rounded-full">
-                                    <input placeholder="Search Artwork" type="text" name="search" />
+                                    <input placeholder="Search Artwork" type="text" name="search" className='text-purple-500' />
                                     <button type="submit">Search</button>
                                 </div>
                             </form>
@@ -49,7 +49,7 @@ const ExploreArtworkPage = () => {
                     </div>
 
                     {/* Grid of Artworks */}
-                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
                         {showData && showData.length > 0 ? (
                             showData.map(singlePublicData => (
                                 <ExploreArtworkPageCard
@@ -58,7 +58,12 @@ const ExploreArtworkPage = () => {
                                 />
                             ))
                         ) : (
-                            <p>No Data Found!</p>
+                            <p className="text-left text-gray-500 text-base sm:text-lg md:text-xl lg:text-2xl font-medium">
+                                No artworks found!
+                            </p>
+
+
+
                         )}
                     </div>
                 </div>

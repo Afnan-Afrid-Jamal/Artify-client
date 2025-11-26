@@ -5,7 +5,8 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { useLoaderData } from 'react-router';
 import LatestArtworkCard from '../Components/LatestArtworkCard';
-import TodaysCollection from '../Components/TodaysCollection';
+import PremiumCollection from '../Components/PremiumCollection';
+import FeatureInfo from '../Components/FeatureInfo';
 
 const HomePage = () => {
 
@@ -13,7 +14,7 @@ const HomePage = () => {
 
     return (
         <div>
-            <div>
+            <div className='mt-8'>
                 <ImgSliderForBanner />
             </div>
 
@@ -22,7 +23,7 @@ const HomePage = () => {
                     Latest Artworks
                 </h1>
 
-                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-6">
+                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-8">
                     {latestArtworkData.map((eachLatestArtworkdata) => (
                         <LatestArtworkCard
                             key={eachLatestArtworkdata._id?.$oid || eachLatestArtworkdata._id}
@@ -32,7 +33,10 @@ const HomePage = () => {
                 </div>
             </div>
             <div>
-                <TodaysCollection></TodaysCollection>
+                <PremiumCollection></PremiumCollection>
+            </div>
+            <div>
+                <FeatureInfo></FeatureInfo>
             </div>
         </div>
     );

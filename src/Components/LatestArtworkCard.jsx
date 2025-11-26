@@ -15,7 +15,7 @@ const LatestArtworkCard = ({ eachLatestArtworkdata }) => {
     } = eachLatestArtworkdata;
 
     return (
-        <div className="rounded-2xl shadow-md hover:shadow-xl transition-shadow duration-300 overflow-hidden border-2 border-purple-400 flex flex-col">
+        <div className="rounded-2xl shadow-2xl hover:shadow-purple-500/50 duration-500 overflow-hidden transition-all border-2 border-purple-400 flex flex-col">
             {/* Artwork Image */}
             <div className="relative">
                 <img
@@ -34,7 +34,7 @@ const LatestArtworkCard = ({ eachLatestArtworkdata }) => {
             <div className="p-5 flex flex-col justify-between flex-1">
                 <div>
                     {/* Title */}
-                    <h3 className="text-lg sm:text-xl font-bold text-white truncate">
+                    <h3 className="text-lg sm:text-xl font-bold truncate">
                         {title}
                     </h3>
 
@@ -43,9 +43,9 @@ const LatestArtworkCard = ({ eachLatestArtworkdata }) => {
                         <img
                             src={artistPhotoURL}
                             alt={artistName}
-                            className="w-9 h-9 rounded-full object-cover mr-3 border border-purple-400 flex-shrink-0"
+                            className="w-9 h-9 rounded-full object-cover mr-3 border border-purple-400 shrink-0"
                         />
-                        <p className="text-sm sm:text-base font-medium text-gray-200 truncate">
+                        <p className="text-sm sm:text-base font-medium truncate">
                             {artistName}
                         </p>
                     </div>

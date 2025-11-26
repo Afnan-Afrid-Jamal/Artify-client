@@ -16,7 +16,7 @@ const MyFavoritesPage = () => {
         fetch(`http://localhost:3000/favourites-data?email=${user.email}`)
             .then(res => res.json())
             .then(data => {
-                setUserFavouritesData(data.data || []);
+                setUserFavouritesData(data.data);
             })
     }, [user]);
 
@@ -70,8 +70,8 @@ const MyFavoritesPage = () => {
 
 
     return (
-        <div className="min-h-screen py-10 px-4">
-            <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-purple-600 text-center my-6">
+        <div className="max-w-11/12 mx-auto px-4">
+            <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-purple-600 text-center my-10">
                 My Favourite Artworks
             </h1>
 
@@ -99,7 +99,7 @@ const MyFavoritesPage = () => {
                     </p>
                 </div>
             ) : (
-                <div className="grid md:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-6">
+                <div className="grid md:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-8 pb-8">
                     {userFavouritesData.map((art, index) => (
                         <div
                             key={index}
@@ -123,58 +123,60 @@ const MyFavoritesPage = () => {
                             <div className="p-5 flex flex-col justify-between flex-1">
                                 <div>
                                     {/* Title */}
-                                    <h3 className="text-lg sm:text-xl font-bold text-white truncate">
+                                    <h3 className="text-lg sm:text-xl font-bold truncate">
                                         {art.title}
                                     </h3>
 
                                     {/* Artist Info */}
-                                    <div className="flex items-center mt-3">
+                                    <div className="flex items-center mt-2">
                                         <img
                                             src={art.artistPhotoURL}
                                             alt={art.artistName}
-                                            className="w-9 h-9 rounded-full object-cover mr-3 border border-purple-400 flex-shrink-0"
+                                            className="w-9 h-9 rounded-full object-cover mr-3 border border-purple-400 shrink-0"
                                         />
-                                        <p className="text-sm sm:text-base font-medium text-gray-200 truncate">
-                                            {art.artistName}
-                                        </p>
+                                        <div className="flex flex-col my-2">
+                                            <p className="font-medium truncate">
+                                                {art.artistName}
+                                            </p>
+                                            <p className="text-sm truncate">
+                                                {art.artistEmail}
+                                            </p>
+                                        </div>
                                     </div>
 
                                     {/* Category & Medium */}
-                                    <div className="flex justify-between items-center mt-4">
+                                    <div className="flex justify-between items-center my-4">
                                         <span className="bg-purple-300 text-purple-800 px-3 py-1 rounded-full text-sm font-semibold truncate">
                                             {art.category} • {art.medium}
                                         </span>
                                     </div>
 
                                     {/* Description */}
-                                    <p className="text-gray-400 text-sm mt-2 line-clamp-3">
+                                    <p className="text-sm mt-2 line-clamp-3 my-3">
                                         {art.description}
                                     </p>
 
-                                    {/* Dimensions */}
-                                    <p className="text-gray-300 text-sm mt-1 truncate">
-                                        <span className="font-semibold text-white">Dimensions:</span> {art.dimensions}
-                                    </p>
+                                    {/* Dimensions and visibility */}
+                                    <div className="flex justify-between items-center">
+                                        <p className="text-sm my-3 truncate">
+                                            <span className="font-semibold">Dimensions:</span> {art.dimensions}
+                                        </p>
+                                        <p
+                                            className={`mt-1 text-sm truncate ${art.visibility === "public"
+                                                ? "text-green-500"
+                                                : "text-red-500"
+                                                }`}
+                                        >
+                                            Visibility: {art.visibility}
+                                        </p>
+                                    </div>
 
                                     {/* Price */}
-                                    <p className="text-white font-semibold text-lg mt-2 truncate">
+                                    <p className="font-semibold text-lg my-3 truncate">
                                         Price: ${art.price}
                                     </p>
 
-                                    {/* Visibility */}
-                                    <p
-                                        className={`mt-1 text-sm truncate ${art.visibility === "public"
-                                            ? "text-green-400"
-                                            : "text-red-400"
-                                            }`}
-                                    >
-                                        Visibility: {art.visibility}
-                                    </p>
 
-                                    {/* Artist Email */}
-                                    <p className="text-gray-400 text-sm mt-1 truncate">
-                                        {art.artistEmail}
-                                    </p>
                                 </div>
 
                                 {/* Unfavorite Button at Bottom */}

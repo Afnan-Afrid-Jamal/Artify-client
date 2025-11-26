@@ -1,14 +1,16 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { FaCaretLeft, FaHeart, FaStar } from 'react-icons/fa';
 import { FaHeartCrack } from 'react-icons/fa6';
 import { useLoaderData, useNavigate } from 'react-router';
 import { toast } from 'react-toastify';
+import { AuthContext } from '../Provider/AuthContext';
 
 const ArtworkDetailsPage = () => {
     const viewDetailsData = useLoaderData();
     const [likes, setLikes] = useState(viewDetailsData.likesCount)
     const [likesBtn, setLikesBtn] = useState(true)
     const [isAddFavouritesBtnDisable, setIsAddFavouritesBtnDisable] = useState(false)
+    const { user } = useContext(AuthContext)
     const navigate = useNavigate()
 
     const handleAddFavourites = async () => {
@@ -26,8 +28,8 @@ const ArtworkDetailsPage = () => {
             artistPhotoURL: viewDetailsData.artistPhotoURL,
             likesCount: viewDetailsData.likesCount,
             createdAt: viewDetailsData.createdAt,
-            username: "afnan",
-            userEmail: "afnan@gmail.com"
+            username: user.displayName,
+            userEmail: user.email
         };
 
         try {
