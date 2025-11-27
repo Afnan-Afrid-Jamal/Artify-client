@@ -100,7 +100,7 @@ const MyGalleryPage = () => {
                 </p>
             ) : (
                 <div className="max-w-11/12 mx-auto py-10 px-4">
-                    <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-purple-600 text-center mb-10">
+                    <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-400 text-center mb-10">
                         My Gallery
                     </h1>
 
@@ -121,7 +121,7 @@ const MyGalleryPage = () => {
                                     />
                                 </svg>
                             </div>
-                            <h2 className="text-2xl font-semibold text-purple-600">No Data Found</h2>
+                            <h2 className="text-2xl font-semibold text-gray-400">No Data Found</h2>
                             <p className="text-base max-w-sm mt-1">
                                 We couldn’t find your artworks. Please add your work.
                             </p>
@@ -206,15 +206,15 @@ const MyGalleryPage = () => {
                                             <button className="btn flex-1 flex items-center justify-center gap-2 bg-purple-600 text-white font-semibold py-2.5 rounded-lg shadow-md hover:bg-purple-700 hover:shadow-lg transition duration-200 hover:cursor-pointer" onClick={() => document.getElementById('my_modal_5').showModal()}><MdTipsAndUpdates size={20} className='text-white' />
                                                 Update</button>
                                             <dialog id="my_modal_5" className="modal modal-middle">
-                                                <div className="modal-box max-w-4xl w-11/12 sm:w-full mx-auto p-4 sm:p-6 bg-purple-100">
-                                                    <h3 className="font-bold text-lg sm:text-xl md:text-2xl mb-4 sm:mb-6 text-purple-600">
+                                                <div className="modal-box max-w-4xl w-11/12 sm:w-full mx-auto p-4 sm:p-6 bg-black">
+                                                    <h3 className="font-bold text-lg sm:text-xl md:text-2xl mb-4 sm:mb-6 text-purple-500 text-center">
                                                         Update Your Artwork
                                                     </h3>
                                                     <div className="modal-action">
                                                         <form onSubmit={(event) => handleUpdate(event, art._id)} method="dialog" className="w-full">
                                                             <div className="space-y-4 sm:space-y-6 max-h-[60vh] sm:max-h-[70vh] overflow-y-auto pr-2">
                                                                 <div>
-                                                                    <label className="block mb-2 font-semibold text-sm sm:text-base text-purple-600">
+                                                                    <label className="block mb-2 font-semibold text-sm sm:text-base text-gray-400">
                                                                         Image URL
                                                                     </label>
                                                                     <input
@@ -222,13 +222,13 @@ const MyGalleryPage = () => {
                                                                         name="imageURL"
                                                                         placeholder="https://example.com/your-artwork.jpg"
                                                                         defaultValue={art.imageURL}
-                                                                        className="w-full border-2 border-violet-500 rounded-xl px-3 sm:px-4 py-2 sm:py-3 placeholder-purple-600 focus:outline-none focus:ring-2 focus:ring-violet-300 text-sm sm:text-base text-purple-600"
+                                                                        className="w-full border-2 border-violet-500 rounded-xl px-3 sm:px-4 py-2 sm:py-3 placeholder-black focus:outline-none focus:ring-2 focus:ring-violet-300 text-sm sm:text-base text-gray-400"
                                                                     />
                                                                 </div>
 
                                                                 {/* Title */}
                                                                 <div>
-                                                                    <label className="block mb-2 font-semibold text-sm sm:text-base text-purple-600">
+                                                                    <label className="block mb-2 font-semibold text-sm sm:text-base text-gray-400">
                                                                         Artwork Title
                                                                     </label>
                                                                     <input
@@ -236,20 +236,20 @@ const MyGalleryPage = () => {
                                                                         name="title"
                                                                         placeholder="Enter a captivating title"
                                                                         defaultValue={art.title}
-                                                                        className="w-full border-2 border-violet-500 rounded-xl px-3 sm:px-4 py-2 sm:py-3 placeholder-purple-600 focus:outline-none focus:ring-2 focus:ring-violet-300 text-sm sm:text-base text-purple-600"
+                                                                        className="w-full border-2 border-violet-500 rounded-xl px-3 sm:px-4 py-2 sm:py-3 placeholder-black focus:outline-none focus:ring-2 focus:ring-violet-300 text-sm sm:text-base text-gray-400"
                                                                     />
                                                                 </div>
 
                                                                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
                                                                     {/* Category */}
                                                                     <div>
-                                                                        <label className="block mb-2 font-semibold text-sm sm:text-base text-purple-600">
+                                                                        <label className="block mb-2 font-semibold text-sm sm:text-base text-gray-400">
                                                                             Category
                                                                         </label>
                                                                         <select
                                                                             name='category'
                                                                             defaultValue={art.category}
-                                                                            className="w-full border-2 border-violet-500 rounded-xl px-3 sm:px-4 py-2 sm:py-3 focus:outline-none focus:ring-2 focus:ring-violet-300 text-sm sm:text-base text-purple-600"
+                                                                            className="w-full border-2 border-violet-500 rounded-xl px-3 sm:px-4 py-2 sm:py-3 focus:outline-none focus:ring-2 focus:ring-violet-300 text-sm sm:text-base text-gray-400"
                                                                         >
                                                                             <option value="">Select Category</option>
                                                                             <option value="painting">Painting</option>
@@ -263,7 +263,7 @@ const MyGalleryPage = () => {
 
                                                                     {/* Medium/Tools */}
                                                                     <div>
-                                                                        <label className="block mb-2 font-semibold text-sm sm:text-base text-purple-600">
+                                                                        <label className="block mb-2 font-semibold text-sm sm:text-base text-gray-400">
                                                                             Medium/Tools
                                                                         </label>
                                                                         <input
@@ -271,14 +271,14 @@ const MyGalleryPage = () => {
                                                                             name="medium"
                                                                             placeholder="Oil Paint, Photoshop, etc."
                                                                             defaultValue={art.medium}
-                                                                            className="w-full border-2 border-violet-500 rounded-xl px-3 sm:px-4 py-2 sm:py-3 placeholder-purple-600 focus:outline-none focus:ring-2 focus:ring-violet-300 text-sm sm:text-base text-purple-600"
+                                                                            className="w-full border-2 border-violet-500 rounded-xl px-3 sm:px-4 py-2 sm:py-3 placeholder-black focus:outline-none focus:ring-2 focus:ring-violet-300 text-sm sm:text-base text-gray-400"
                                                                         />
                                                                     </div>
                                                                 </div>
 
                                                                 {/* Description */}
                                                                 <div>
-                                                                    <label className="block mb-2 font-semibold text-sm sm:text-base text-purple-600">
+                                                                    <label className="block mb-2 font-semibold text-sm sm:text-base text-gray-400">
                                                                         Description
                                                                     </label>
                                                                     <textarea
@@ -286,14 +286,14 @@ const MyGalleryPage = () => {
                                                                         placeholder="Tell the story behind your artwork..."
                                                                         name="description"
                                                                         defaultValue={art.description}
-                                                                        className="w-full border-2 border-violet-500 rounded-xl px-3 sm:px-4 py-2 sm:py-3 placeholder-purple-600 focus:outline-none focus:ring-2 focus:ring-violet-300 resize-none text-sm sm:text-base text-purple-600"
+                                                                        className="w-full border-2 border-violet-500 rounded-xl px-3 sm:px-4 py-2 sm:py-3 placeholder-black focus:outline-none focus:ring-2 focus:ring-violet-300 resize-none text-sm sm:text-base text-gray-400"
                                                                     />
                                                                 </div>
 
                                                                 {/* Dimensions & Price */}
                                                                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
                                                                     <div>
-                                                                        <label className="block mb-2 font-semibold text-sm sm:text-base text-purple-600">
+                                                                        <label className="block mb-2 font-semibold text-sm sm:text-base text-gray-400">
                                                                             Dimensions (optional)
                                                                         </label>
                                                                         <input
@@ -301,12 +301,12 @@ const MyGalleryPage = () => {
                                                                             placeholder="24x36 inches"
                                                                             name="dimensions"
                                                                             defaultValue={art.dimensions}
-                                                                            className="w-full border-2 border-violet-500 rounded-xl px-3 sm:px-4 py-2 sm:py-3 placeholder-purple-600 focus:outline-none focus:ring-2 focus:ring-violet-300 text-sm sm:text-base text-purple-600"
+                                                                            className="w-full border-2 border-violet-500 rounded-xl px-3 sm:px-4 py-2 sm:py-3 placeholder-black focus:outline-none focus:ring-2 focus:ring-violet-300 text-sm sm:text-base text-gray-400"
                                                                         />
                                                                     </div>
 
                                                                     <div>
-                                                                        <label className="block mb-2 font-semibold text-sm sm:text-base text-purple-600">
+                                                                        <label className="block mb-2 font-semibold text-sm sm:text-base text-gray-400">
                                                                             Price (optional)
                                                                         </label>
                                                                         <input
@@ -314,20 +314,20 @@ const MyGalleryPage = () => {
                                                                             placeholder="0.00"
                                                                             name="price"
                                                                             defaultValue={art.price}
-                                                                            className="w-full border-2 border-violet-500 rounded-xl px-3 sm:px-4 py-2 sm:py-3 placeholder-purple-600 focus:outline-none focus:ring-2 focus:ring-violet-300 text-sm sm:text-base text-purple-600"
+                                                                            className="w-full border-2 border-violet-500 rounded-xl px-3 sm:px-4 py-2 sm:py-3 placeholder-black focus:outline-none focus:ring-2 focus:ring-violet-300 text-sm sm:text-base text-gray-400"
                                                                         />
                                                                     </div>
                                                                 </div>
 
                                                                 {/* Visibility */}
                                                                 <div>
-                                                                    <label className="block mb-2 font-semibold text-sm sm:text-base text-purple-600">
+                                                                    <label className="block mb-2 font-semibold text-sm sm:text-base text-gray-500">
                                                                         Visibility
                                                                     </label>
                                                                     <select
                                                                         name="visibility"
                                                                         defaultValue={art.visibility}
-                                                                        className="w-full border-2 border-violet-500 rounded-xl px-3 sm:px-4 py-2 sm:py-3 focus:outline-none focus:ring-2 focus:ring-violet-300 text-sm sm:text-base text-purple-600"
+                                                                        className="w-full border-2 border-violet-500 rounded-xl px-3 sm:px-4 py-2 sm:py-3 focus:outline-none focus:ring-2 focus:ring-violet-300 text-sm sm:text-base text-gray-400"
                                                                     >
                                                                         <option value="Public">Public</option>
                                                                         <option value="Private">Private</option>
@@ -343,7 +343,7 @@ const MyGalleryPage = () => {
                                                                     </button>
                                                                     <button
                                                                         type="button"
-                                                                        className="w-full flex-1 sm:w-auto border-2 border-purple-500 text-purple-600 font-semibold py-2.5 px-6 rounded-lg shadow-md hover:bg-purple-50 hover:shadow-lg transition duration-200 hover:cursor-pointer text-sm sm:text-base"
+                                                                        className="w-full flex-1 sm:w-auto border-2 border-purple-500 text-white font-semibold py-2.5 px-6 rounded-lg shadow-md hover:bg-purple-20 hover:shadow-lg transition duration-200 hover:cursor-pointer text-sm sm:text-base"
                                                                         onClick={() => document.getElementById('my_modal_5').close()}
                                                                     >
                                                                         Cancel
