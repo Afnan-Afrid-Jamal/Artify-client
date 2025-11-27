@@ -1,17 +1,38 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { FaCaretLeft, FaHeart, FaStar } from 'react-icons/fa';
 import { FaHeartCrack } from 'react-icons/fa6';
-import { useLoaderData, useNavigate } from 'react-router';
+import { useNavigate, useParams } from 'react-router';
 import { toast } from 'react-toastify';
 import { AuthContext } from '../Provider/AuthContext';
+import LoadingSpinner from '../Components/LoadingSpinner';
 
 const ArtworkDetailsPage = () => {
-    const viewDetailsData = useLoaderData();
-    const [likes, setLikes] = useState(viewDetailsData.likesCount)
-    const [likesBtn, setLikesBtn] = useState(true)
-    const [isAddFavouritesBtnDisable, setIsAddFavouritesBtnDisable] = useState(false)
-    const { user } = useContext(AuthContext)
-    const navigate = useNavigate()
+    const [viewDetailsData, setViewDetailsData] = useState({});
+    const [likes, setLikes] = useState(0);
+    const [likesBtn, setLikesBtn] = useState(true);
+    const [isAddFavouritesBtnDisable, setIsAddFavouritesBtnDisable] = useState(false);
+    const [loading, setLoading] = useState(true);
+    const { user } = useContext(AuthContext);
+    const navigate = useNavigate();
+    const params = useParams();
+
+    useEffect(() => {
+        if (!user?.accessToken) return;
+
+        setLoading(true);
+        fetch(`http://localhost:3000/all-artworks/${params.id}`, {
+            headers: {
+                authorization: `Bearer ${user.accessToken}`
+            }
+        })
+            .then(res => res.json())
+            .then(data => {
+                setViewDetailsData(data);
+                setLikes(data.likesCount);
+            })
+            .catch(err => console.error(err))
+            .finally(() => setLoading(false));
+    }, [user, params.id]);
 
     const handleAddFavourites = async () => {
         const favouritesData = {
@@ -36,75 +57,75 @@ const ArtworkDetailsPage = () => {
             const res = await fetch("http://localhost:3000/favourites", {
                 method: "POST",
                 headers: {
-                    "Content-Type": "application/json"
+                    "Content-Type": "application/json",
+                    authorization: `Bearer ${user.accessToken}`
                 },
                 body: JSON.stringify(favouritesData)
             });
 
-            const data = await res.json();
             if (res.ok) {
                 toast.success("Added to favorites!", {
-                    style: {
-                        background: "#000",
-                        color: "#fff"
-                    }
+                    style: { background: "#000", color: "#fff" }
                 });
+                setIsAddFavouritesBtnDisable(true);
             } else {
                 toast.error("Failed to add favourite.", {
-                    style: {
-                        background: "#000",
-                        color: "#fff"
-                    }
+                    style: { background: "#000", color: "#fff" }
                 });
             }
         } catch (error) {
             console.error(error);
-            alert("Something went wrong!");
+            toast.error("Something went wrong!", {
+                style: { background: "#000", color: "#fff" }
+            });
         }
     };
 
-
-    // Likes increase function
     const handleLikesCount = async (id) => {
+        setLoading(true);
         try {
             const res = await fetch(`http://localhost:3000/all-artworks/${id}/like`, {
                 method: "PATCH",
-                headers: { "Content-Type": "application/json" },
+                headers: {
+                    "Content-Type": "application/json",
+                    authorization: `Bearer ${user.accessToken}`
+                },
                 body: JSON.stringify({ action: "inc" })
             });
-
             const updatedData = await res.json();
             setLikes(updatedData.likesCount);
-
         } catch (error) {
             console.error(error);
+        } finally {
+            setLoading(false);
         }
     };
 
-
-    // Dislike function
     const handleDislikes = async (id) => {
+        setLoading(true);
         try {
             const res = await fetch(`http://localhost:3000/all-artworks/${id}/like`, {
                 method: "PATCH",
-                headers: { "Content-Type": "application/json" },
+                headers: {
+                    "Content-Type": "application/json",
+                    authorization: `Bearer ${user.accessToken}`
+                },
                 body: JSON.stringify({ action: "dec" })
             });
-
             const updatedData = await res.json();
-
             setLikes(updatedData.likesCount);
-
         } catch (error) {
             console.error(error);
+        } finally {
+            setLoading(false);
         }
-    }
+    };
+
+    if (loading) return <LoadingSpinner />;
 
     return (
         <div className="max-w-7xl mx-auto px-4 py-12">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
-
-                {/* Artwork Image */}
                 <div className="rounded-2xl overflow-hidden shadow-lg w-full h-full">
                     <img
                         src={viewDetailsData.imageURL}
@@ -113,7 +134,6 @@ const ArtworkDetailsPage = () => {
                     />
                 </div>
 
-                {/* Artwork Details */}
                 <div className="flex flex-col justify-between border-2 border-purple-500 p-6 rounded-2xl w-full h-full">
                     <div>
                         <h1 className="text-3xl md:text-4xl font-bold text-purple-600 mb-4 break-words">
@@ -126,7 +146,6 @@ const ArtworkDetailsPage = () => {
                             <span className="font-semibold">Description:</span> {viewDetailsData.description}
                         </p>
 
-                        {/* Artist Info */}
                         <div className="flex items-center mb-6">
                             <img
                                 src={viewDetailsData.artistPhotoURL}
@@ -139,7 +158,6 @@ const ArtworkDetailsPage = () => {
                             </div>
                         </div>
 
-                        {/* Price & Likes */}
                         <div className="flex items-center justify-between mb-6">
                             <p className="text-3xl font-bold break-words">${viewDetailsData.price}</p>
                             <div className="flex items-center gap-2">
@@ -149,65 +167,47 @@ const ArtworkDetailsPage = () => {
                         </div>
                     </div>
 
-                    {/* Action Buttons */}
                     <div className="flex flex-col sm:flex-row gap-4">
                         <button
                             onClick={() => {
-                                if (likesBtn) {
-                                    handleLikesCount(viewDetailsData._id)
-                                } else {
-                                    handleDislikes(viewDetailsData._id)
-                                }
-                                setLikesBtn(!likesBtn)
+                                if (likesBtn) handleLikesCount(viewDetailsData._id);
+                                else handleDislikes(viewDetailsData._id);
+                                setLikesBtn(!likesBtn);
                             }}
                             className="flex-1 bg-purple-600 hover:bg-purple-700 text-white font-semibold py-3 rounded-lg shadow-md transition duration-300 break-words hover:cursor-pointer"
                         >
-                            {
-                                likesBtn ? (
-                                    <div className="flex items-center justify-center gap-1">
-                                        <FaHeart className="text-xl" />
-                                        <span className="leading-none">Like</span>
-                                    </div>
-
-
-                                ) : (
-                                    <div className="flex items-center justify-center gap-1">
-                                        <FaHeartCrack className="inline mr-2" /> <span className="leading-none">Dislike</span>
-                                    </div>
-                                )
-                            }
+                            {likesBtn ? (
+                                <div className="flex items-center justify-center gap-1">
+                                    <FaHeart className="text-xl" />
+                                    <span className="leading-none">Like</span>
+                                </div>
+                            ) : (
+                                <div className="flex items-center justify-center gap-1">
+                                    <FaHeartCrack className="inline mr-2" />
+                                    <span className="leading-none">Dislike</span>
+                                </div>
+                            )}
                         </button>
 
                         <button
-                            onClick={() => {
-                                handleAddFavourites();
-                                setIsAddFavouritesBtnDisable(true);
-                            }}
-                            className={`flex-1 bg-white border border-purple-600 hover:bg-purple-50 text-purple-600 font-semibold py-3 rounded-lg shadow-md transition duration-300 break-words hover:cursor-pointer
-        ${isAddFavouritesBtnDisable ? "opacity-30 cursor-not-allowed" : ""}
-    `}
+                            onClick={handleAddFavourites}
                             disabled={isAddFavouritesBtnDisable}
+                            className={`flex-1 bg-white border border-purple-600 hover:bg-purple-50 text-purple-600 font-semibold py-3 rounded-lg shadow-md transition duration-300 break-words hover:cursor-pointer ${isAddFavouritesBtnDisable ? "opacity-30 cursor-not-allowed" : ""}`}
                         >
                             <FaStar className="inline mr-2" />
-                            {
-                                isAddFavouritesBtnDisable ? "Added to Favorites"
-                                    :
-                                    "Add to Favorites"
-                            }
+                            {isAddFavouritesBtnDisable ? "Added to Favorites" : "Add to Favorites"}
                         </button>
-
                     </div>
                 </div>
+            </div>
 
-            </div >
             <button
                 onClick={() => navigate(-1)}
-                className='btn btn-primary bg-purple-600 hover:bg-purple-700 text-white font-semibold py-3 rounded-lg shadow-md transition duration-300 flex justify-center items-center mx-auto mt-15 w-full break-words'
+                className="btn btn-primary bg-purple-600 hover:bg-purple-700 text-white font-semibold py-3 rounded-lg shadow-md transition duration-300 flex justify-center items-center mx-auto mt-15 w-full break-words"
             >
                 <FaCaretLeft size={20} /> Go Back
             </button>
-        </div >
-
+        </div>
     );
 };
 

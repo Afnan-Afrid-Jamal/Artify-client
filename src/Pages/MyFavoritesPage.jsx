@@ -6,22 +6,29 @@ import Swal from "sweetalert2";
 
 const MyFavoritesPage = () => {
 
-    const [userFavouritesData, setUserFavouritesData] = useState([]);
-
     const { user } = useContext(AuthContext);
+    const [userFavouritesData, setUserFavouritesData] = useState([]);
+    const [loading, setLoading] = useState(true);
 
+    // Fetch favourites
     useEffect(() => {
         if (!user?.email) return;
 
-        fetch(`http://localhost:3000/favourites-data?email=${user.email}`)
+        setLoading(true);
+        fetch(`http://localhost:3000/favourites-data?email=${user.email}`, {
+            headers: {
+                authorization: `Bearer ${user.accessToken}`
+            }
+        })
             .then(res => res.json())
             .then(data => {
-                setUserFavouritesData(data.data);
+                setUserFavouritesData(data.data || []);
             })
+            .catch(err => console.error(err))
+            .finally(() => setLoading(false));
     }, [user]);
 
-
-
+    // Unfavourite handler
     const handleUnfavourite = async (id) => {
         const result = await Swal.fire({
             title: "Are you sure?",
@@ -35,15 +42,17 @@ const MyFavoritesPage = () => {
 
         if (result.isConfirmed) {
             try {
-                const response = await fetch(`http://localhost:3000/unfavourite/${id}`, {
+                const res = await fetch(`http://localhost:3000/unfavourite/${id}`, {
                     method: "DELETE",
+                    headers: {
+                        authorization: `Bearer ${user.accessToken}`
+                    }
                 });
 
-                const data = await response.json();
+                const data = await res.json();
 
-                if (data.success || response.ok) {
+                if (data.success || res.ok) {
                     setUserFavouritesData(prev => prev.filter(art => art._id !== id));
-
                     Swal.fire({
                         title: "Deleted!",
                         text: "Your artwork has been removed from favourites.",
@@ -56,8 +65,8 @@ const MyFavoritesPage = () => {
                         icon: "error",
                     });
                 }
-            } catch (error) {
-                console.error(error);
+            } catch (err) {
+                console.error(err);
                 Swal.fire({
                     title: "Error!",
                     text: "Something went wrong!",
@@ -67,10 +76,11 @@ const MyFavoritesPage = () => {
         }
     };
 
-
+    // Loading spinner
+    if (loading) return <LoadingSpinner />;
 
     return (
-        <div className="max-w-11/12 mx-auto px-4">
+        <div className="max-w-11/12 mx-auto px-4 py-10">
             <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-purple-600 text-center my-10">
                 My Favourite Artworks
             </h1>
@@ -79,7 +89,7 @@ const MyFavoritesPage = () => {
                 <div className="flex flex-col items-center justify-center py-16 text-center">
                     <div className="w-20 h-20 mb-4 flex items-center justify-center rounded-full bg-[#1f1f1f] border border-gray-700 shadow-md">
                         <svg
-                            className="w-2xl h-2xl text-gray-400"
+                            className="w-10 h-10 text-gray-400"
                             fill="none"
                             stroke="currentColor"
                             strokeWidth="1.5"
@@ -100,9 +110,9 @@ const MyFavoritesPage = () => {
                 </div>
             ) : (
                 <div className="grid md:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-8 pb-8">
-                    {userFavouritesData.map((art, index) => (
+                    {userFavouritesData.map((art) => (
                         <div
-                            key={index}
+                            key={art._id}
                             className="rounded-2xl shadow-md hover:shadow-xl transition-shadow duration-300 overflow-hidden border-2 border-purple-400 flex flex-col"
                         >
                             {/* Artwork Image */}
@@ -112,7 +122,6 @@ const MyFavoritesPage = () => {
                                     alt={art.title}
                                     className="w-full h-64 sm:h-72 md:h-80 object-cover"
                                 />
-                                {/* Likes Badge */}
                                 <div className="absolute top-3 right-3 bg-purple-400 px-3 py-1 rounded-full flex items-center gap-1 shadow-sm">
                                     <FaHeart className="text-red-500" />
                                     <span className="text-sm font-bold">{art.likesCount}</span>
@@ -122,12 +131,8 @@ const MyFavoritesPage = () => {
                             {/* Card Body */}
                             <div className="p-5 flex flex-col justify-between flex-1">
                                 <div>
-                                    {/* Title */}
-                                    <h3 className="text-lg sm:text-xl font-bold truncate">
-                                        {art.title}
-                                    </h3>
+                                    <h3 className="text-lg sm:text-xl font-bold truncate">{art.title}</h3>
 
-                                    {/* Artist Info */}
                                     <div className="flex items-center mt-2">
                                         <img
                                             src={art.artistPhotoURL}
@@ -135,52 +140,38 @@ const MyFavoritesPage = () => {
                                             className="w-9 h-9 rounded-full object-cover mr-3 border border-purple-400 shrink-0"
                                         />
                                         <div className="flex flex-col my-2">
-                                            <p className="font-medium truncate">
-                                                {art.artistName}
-                                            </p>
-                                            <p className="text-sm truncate">
-                                                {art.artistEmail}
-                                            </p>
+                                            <p className="font-medium truncate">{art.artistName}</p>
+                                            <p className="text-sm truncate">{art.artistEmail}</p>
                                         </div>
                                     </div>
 
-                                    {/* Category & Medium */}
                                     <div className="flex justify-between items-center my-4">
                                         <span className="bg-purple-300 text-purple-800 px-3 py-1 rounded-full text-sm font-semibold truncate">
                                             {art.category} • {art.medium}
                                         </span>
                                     </div>
 
-                                    {/* Description */}
-                                    <p className="text-sm mt-2 line-clamp-3 my-3">
-                                        {art.description}
-                                    </p>
+                                    <p className="text-sm mt-2 line-clamp-3 my-3">{art.description}</p>
 
-                                    {/* Dimensions and visibility */}
                                     <div className="flex justify-between items-center">
                                         <p className="text-sm my-3 truncate">
                                             <span className="font-semibold">Dimensions:</span> {art.dimensions}
                                         </p>
                                         <p
-                                            className={`mt-1 text-sm truncate ${art.visibility === "public"
-                                                ? "text-green-500"
-                                                : "text-red-500"
+                                            className={`mt-1 text-sm truncate ${art.visibility === "public" ? "text-green-500" : "text-red-500"
                                                 }`}
                                         >
                                             Visibility: {art.visibility}
                                         </p>
                                     </div>
 
-                                    {/* Price */}
-                                    <p className="font-semibold text-lg my-3 truncate">
-                                        Price: ${art.price}
-                                    </p>
-
-
+                                    <p className="font-semibold text-lg my-3 truncate">Price: ${art.price}</p>
                                 </div>
 
-                                {/* Unfavorite Button at Bottom */}
-                                <button onClick={() => handleUnfavourite(art._id)} className="w-full mt-5 bg-linear-to-r from-purple-400 to-purple-600 text-white font-bold py-3 rounded-lg shadow-md hover:opacity-90 transition duration-200 hover:cursor-pointer">
+                                <button
+                                    onClick={() => handleUnfavourite(art._id)}
+                                    className="w-full mt-5 bg-linear-to-r from-purple-400 to-purple-600 text-white font-bold py-3 rounded-lg shadow-md hover:opacity-90 transition duration-200 hover:cursor-pointer"
+                                >
                                     Unfavorite
                                 </button>
                             </div>
@@ -189,7 +180,6 @@ const MyFavoritesPage = () => {
                 </div>
             )}
         </div>
-
     );
 };
 

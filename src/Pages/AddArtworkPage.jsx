@@ -28,7 +28,8 @@ const AddArtworkPage = () => {
         fetch("http://localhost:3000/all-artworks", {
             method: "POST",
             headers: {
-                "Content-Type": "application/json"
+                "Content-Type": "application/json",
+                authorization: `Bearer ${user.accessToken}`,
             },
             body: JSON.stringify(artworkData)
         })
@@ -39,14 +40,13 @@ const AddArtworkPage = () => {
                         background: "black",
                         color: "white"
                     }
-                })
+                });
                 event.target.reset();
             })
-            .catch(err => toast.error(`Something went wrong! (${err})`));
-
+            .catch(err =>
+                toast.error(`Something went wrong! (${err})`)
+            );
     };
-
-
 
     return (
         <div className="min-h-screen py-8 px-4 flex justify-center items-start">
@@ -63,7 +63,7 @@ const AddArtworkPage = () => {
 
                 <form onSubmit={handleAddArtwork} className="space-y-6">
 
-                    {/* Artist Name & Email (first) */}
+                    {/* Artist Name & Email */}
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <div>
                             <label className="block mb-2 font-semibold">Artist Name</label>
@@ -94,7 +94,7 @@ const AddArtworkPage = () => {
                             name="imageURL"
                             placeholder="https://example.com/your-artwork.jpg"
                             required
-                            className="w-full border-2 border-violet-500 rounded-xl px-4 py-3 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-violet-300"
+                            className="w-full border-2 border-violet-500 rounded-xl px-4 py-3 placeholder-gray-500"
                         />
                     </div>
 
@@ -106,7 +106,7 @@ const AddArtworkPage = () => {
                             name="title"
                             placeholder="Enter a captivating title"
                             required
-                            className="w-full border-2 border-violet-500 rounded-xl px-4 py-3 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-violet-300"
+                            className="w-full border-2 border-violet-500 rounded-xl px-4 py-3 placeholder-gray-500"
                         />
                     </div>
 
@@ -114,7 +114,7 @@ const AddArtworkPage = () => {
                         {/* Category */}
                         <div>
                             <label className="block mb-2 font-semibold">Category</label>
-                            <select name='category' required className="w-full border-2 border-violet-500 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-violet-300 text-purple-500">
+                            <select name='category' required className="w-full border-2 border-violet-500 rounded-xl px-4 py-3 text-purple-500">
                                 <option value="">Select Category</option>
                                 <option value="painting">Painting</option>
                                 <option value="digital">Digital Art</option>
@@ -125,7 +125,7 @@ const AddArtworkPage = () => {
                             </select>
                         </div>
 
-                        {/* Medium/Tools */}
+                        {/* Medium */}
                         <div>
                             <label className="block mb-2 font-semibold">Medium/Tools</label>
                             <input
@@ -133,7 +133,7 @@ const AddArtworkPage = () => {
                                 name="medium"
                                 placeholder="Oil Paint, Photoshop, etc."
                                 required
-                                className="w-full border-2 border-violet-500 rounded-xl px-4 py-3 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-violet-300"
+                                className="w-full border-2 border-violet-500 rounded-xl px-4 py-3 placeholder-gray-500"
                             />
                         </div>
                     </div>
@@ -143,10 +143,10 @@ const AddArtworkPage = () => {
                         <label className="block mb-2 font-semibold">Description</label>
                         <textarea
                             rows="4"
-                            placeholder="Tell the story behind your artwork..."
                             name="description"
+                            placeholder="Tell the story behind your artwork..."
                             required
-                            className="w-full border-2 border-violet-500 rounded-xl px-4 py-3 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-violet-300 resize-none"
+                            className="w-full border-2 border-violet-500 rounded-xl px-4 py-3 placeholder-gray-500 resize-none"
                         />
                     </div>
 
@@ -156,9 +156,9 @@ const AddArtworkPage = () => {
                             <label className="block mb-2 font-semibold">Dimensions (optional)</label>
                             <input
                                 type="text"
-                                placeholder="24x36 inches"
                                 name="dimensions"
-                                className="w-full border-2 border-violet-500 rounded-xl px-4 py-3 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-violet-300"
+                                placeholder="24x36 inches"
+                                className="w-full border-2 border-violet-500 rounded-xl px-4 py-3 placeholder-gray-500"
                             />
                         </div>
 
@@ -166,9 +166,9 @@ const AddArtworkPage = () => {
                             <label className="block mb-2 font-semibold">Price (optional)</label>
                             <input
                                 type="number"
-                                placeholder="0.00"
                                 name="price"
-                                className="w-full border-2 border-violet-500 rounded-xl px-4 py-3 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-violet-300"
+                                placeholder="0.00"
+                                className="w-full border-2 border-violet-500 rounded-xl px-4 py-3 placeholder-gray-500"
                             />
                         </div>
                     </div>
@@ -176,7 +176,7 @@ const AddArtworkPage = () => {
                     {/* Visibility */}
                     <div>
                         <label className="block mb-2 font-semibold">Visibility</label>
-                        <select name="visibility" required className="w-full border-2 border-violet-500 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-violet-300 text-purple-500">
+                        <select name="visibility" required className="w-full border-2 border-violet-500 rounded-xl px-4 py-3 text-purple-500">
                             <option value="Public">Public</option>
                             <option value="Private">Private</option>
                         </select>
@@ -186,12 +186,12 @@ const AddArtworkPage = () => {
                     <div>
                         <button
                             type="submit"
-                            required
-                            className="w-full py-3 bg-violet-500 hover:bg-violet-600 text-white font-semibold rounded-xl transition-all duration-300 hover:cursor-pointer"
+                            className="w-full py-3 bg-violet-500 hover:bg-violet-600 text-white font-semibold rounded-xl transition-all"
                         >
                             🎨 Add Artwork
                         </button>
                     </div>
+
                 </form>
             </div>
         </div>

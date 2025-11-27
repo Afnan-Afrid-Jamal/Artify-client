@@ -39,7 +39,7 @@ const ImgSliderForBanner = () => {
                         />
 
                         {/* Overlay */}
-                        <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent flex flex-col justify-end items-start px-6 sm:px-12 pb-10">
+                        <div className="absolute inset-0 bg-linear-to-t from-black via-transparent to-transparent flex flex-col justify-end items-start px-6 sm:px-12 pb-10">
                             <h1 className="text-white text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-4">
                                 <Typewriter
                                     words={[
