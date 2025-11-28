@@ -13,14 +13,10 @@ const ExploreArtworkPage = () => {
 
     // Fetch all public artworks
     useEffect(() => {
-        if (!user?.accessToken) return;
+
 
         setLoading(true);
-        fetch("http://localhost:3000/all-artworks/public", {
-            headers: {
-                authorization: `Bearer ${user.accessToken}`
-            }
-        })
+        fetch("http://localhost:3000/all-artworks/public")
             .then(res => res.json())
             .then(data => {
                 setAllPublicData(data);
@@ -28,7 +24,7 @@ const ExploreArtworkPage = () => {
             })
             .catch(err => console.error(err))
             .finally(() => setLoading(false));
-    }, [user]);
+    }, []);
 
     // Handle search
     const handleSearch = async (event) => {
@@ -42,11 +38,8 @@ const ExploreArtworkPage = () => {
 
         setLoading(true);
         try {
-            const res = await fetch(`http://localhost:3000/all-artworks/search?search=${encodeURIComponent(searchText)}`, {
-                headers: {
-                    authorization: `Bearer ${user.accessToken}`
-                }
-            });
+            const res = await fetch(`http://localhost:3000/all-artworks/search?search=${encodeURIComponent(searchText)}`)
+
             const data = await res.json();
             setShowData(data);
         } catch (err) {
@@ -58,6 +51,7 @@ const ExploreArtworkPage = () => {
     };
 
 
+    // handle filter
     const handleFilter = (radioValue) => {
 
         if (radioValue === "") {
@@ -71,7 +65,6 @@ const ExploreArtworkPage = () => {
             )
         );
     };
-
 
     return (
         <>
@@ -102,84 +95,83 @@ const ExploreArtworkPage = () => {
                                     </button>
                                 </div>
                             </form>
-
                         </div>
                     </div>
+                    <div>
+                        <div className='flex justify-center items-center mb-16'>
+                            <form className="filter flex gap-2 md:gap-3">
 
-                    <div className='flex justify-center items-center mb-16'>
-                        <form className="filter flex gap-2 md:gap-3">
+                                {/* Reset Button */}
+                                <input
+                                    className="btn btn-square bg-purple-500 text-white border-purple-400 font-medium hover:bg-purple-600 shadow-md transition-all duration-300"
+                                    type="reset"
+                                    value="×"
+                                    onClick={() => handleFilter("")}
+                                />
 
-                            {/* Reset Button */}
-                            <input
-                                className="btn btn-square bg-purple-500 text-white border-purple-400 font-medium hover:bg-purple-600 shadow-md transition-all duration-300"
-                                type="reset"
-                                value="×"
-                                onClick={() => handleFilter("")}
-                            />
+                                {/* Painting */}
+                                <input
+                                    className="btn bg-purple-500 text-white border-purple-400 font-medium hover:bg-purple-600 shadow-md transition-all duration-300 focus:ring-2 focus:ring-purple-300"
+                                    type="radio"
+                                    name="filter"
+                                    aria-label="Painting"
+                                    value="painting"
+                                    onChange={(e) => handleFilter(e.target.value)}
+                                />
 
-                            {/* Painting */}
-                            <input
-                                className="btn bg-purple-500 text-white border-purple-400 font-medium hover:bg-purple-600 shadow-md transition-all duration-300 focus:ring-2 focus:ring-purple-300"
-                                type="radio"
-                                name="filter"
-                                aria-label="Painting"
-                                value="painting"
-                                onChange={(e) => handleFilter(e.target.value)}
-                            />
+                                {/* Digital Art */}
+                                <input
+                                    className="btn bg-purple-500 text-white border-purple-400 font-medium hover:bg-purple-600 shadow-md transition-all duration-300 focus:ring-2 focus:ring-purple-300"
+                                    type="radio"
+                                    name="filter"
+                                    aria-label="Digital Art"
+                                    value="digitalArt"
+                                    onChange={(e) => handleFilter(e.target.value)}
+                                />
 
-                            {/* Digital Art */}
-                            <input
-                                className="btn bg-purple-500 text-white border-purple-400 font-medium hover:bg-purple-600 shadow-md transition-all duration-300 focus:ring-2 focus:ring-purple-300"
-                                type="radio"
-                                name="filter"
-                                aria-label="Digital Art"
-                                value="digitalArt"
-                                onChange={(e) => handleFilter(e.target.value)}
-                            />
+                                {/* Photography */}
+                                <input
+                                    className="btn bg-purple-500 text-white border-purple-400 font-medium hover:bg-purple-600 shadow-md transition-all duration-300 focus:ring-2 focus:ring-purple-300"
+                                    type="radio"
+                                    name="filter"
+                                    aria-label="Photography"
+                                    value="photography"
+                                    onChange={(e) => handleFilter(e.target.value)}
+                                />
 
-                            {/* Photography */}
-                            <input
-                                className="btn bg-purple-500 text-white border-purple-400 font-medium hover:bg-purple-600 shadow-md transition-all duration-300 focus:ring-2 focus:ring-purple-300"
-                                type="radio"
-                                name="filter"
-                                aria-label="Photography"
-                                value="photography"
-                                onChange={(e) => handleFilter(e.target.value)}
-                            />
+                                {/* Drawing */}
+                                <input
+                                    className="btn bg-purple-500 text-white border-purple-400 font-medium hover:bg-purple-600 shadow-md transition-all duration-300 focus:ring-2 focus:ring-purple-300"
+                                    type="radio"
+                                    name="filter"
+                                    aria-label="Drawing"
+                                    value="drawing"
+                                    onChange={(e) => handleFilter(e.target.value)}
+                                />
 
-                            {/* Drawing */}
-                            <input
-                                className="btn bg-purple-500 text-white border-purple-400 font-medium hover:bg-purple-600 shadow-md transition-all duration-300 focus:ring-2 focus:ring-purple-300"
-                                type="radio"
-                                name="filter"
-                                aria-label="Drawing"
-                                value="drawing"
-                                onChange={(e) => handleFilter(e.target.value)}
-                            />
+                                {/* Sculpture */}
+                                <input
+                                    className="btn bg-purple-500 text-white border-purple-400 font-medium hover:bg-purple-600 shadow-md transition-all duration-300 focus:ring-2 focus:ring-purple-300"
+                                    type="radio"
+                                    name="filter"
+                                    aria-label="Sculpture"
+                                    value="sculpture"
+                                    onChange={(e) => handleFilter(e.target.value)}
+                                />
 
-                            {/* Sculpture */}
-                            <input
-                                className="btn bg-purple-500 text-white border-purple-400 font-medium hover:bg-purple-600 shadow-md transition-all duration-300 focus:ring-2 focus:ring-purple-300"
-                                type="radio"
-                                name="filter"
-                                aria-label="Sculpture"
-                                value="sculpture"
-                                onChange={(e) => handleFilter(e.target.value)}
-                            />
+                                {/* Others */}
+                                <input
+                                    className="btn bg-purple-500 text-white border-purple-400 font-medium hover:bg-purple-600 shadow-md transition-all duration-300 focus:ring-2 focus:ring-purple-300"
+                                    type="radio"
+                                    name="filter"
+                                    aria-label="Others"
+                                    value="other"
+                                    onChange={(e) => handleFilter(e.target.value)}
+                                />
 
-                            {/* Others */}
-                            <input
-                                className="btn bg-purple-500 text-white border-purple-400 font-medium hover:bg-purple-600 shadow-md transition-all duration-300 focus:ring-2 focus:ring-purple-300"
-                                type="radio"
-                                name="filter"
-                                aria-label="Others"
-                                value="other"
-                                onChange={(e) => handleFilter(e.target.value)}
-                            />
-
-                        </form>
+                            </form>
+                        </div>
                     </div>
-
 
                     {/* Grid of Artworks */}
                     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
