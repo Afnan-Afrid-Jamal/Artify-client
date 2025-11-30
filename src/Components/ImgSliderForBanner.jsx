@@ -20,7 +20,7 @@ const ImgSliderForBanner = () => {
     };
 
     useEffect(() => {
-        fetch('https://artify-server-sigma.vercel.app/all-artworks/trending-artwork')
+        fetch('https://artify-2a0f9.web.app/all-artworks/trending-artwork')
             .then(res => res.json())
             .then(data => setArtworks(data))
             .catch(err => console.error(err));

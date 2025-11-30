@@ -81,39 +81,27 @@ const ArtworkDetailsPage = () => {
         }
     };
 
-    const handleLikesCount = async (id) => {
-        setLoading(true);
-        try {
-            const res = await fetch(`https://artify-server-sigma.vercel.app/all-artworks/${id}/like`, {
-                method: "PATCH",
-                headers: {
-                    "Content-Type": "application/json",
-                    authorization: `Bearer ${user.accessToken}`
-                },
-                body: JSON.stringify({ action: "inc" })
-            });
-            const updatedData = await res.json();
-            setLikes(updatedData.likesCount);
-        } catch (error) {
-            console.error(error);
-        } finally {
-            setLoading(false);
-        }
-    };
 
-    const handleDislikes = async (id) => {
+    const handleToggleLike = async () => {
         setLoading(true);
         try {
-            const res = await fetch(`https://artify-server-sigma.vercel.app/all-artworks/${id}/like`, {
-                method: "PATCH",
-                headers: {
-                    "Content-Type": "application/json",
-                    authorization: `Bearer ${user.accessToken}`
-                },
-                body: JSON.stringify({ action: "dec" })
-            });
+            const res = await fetch(
+                `https://artify-server-sigma.vercel.app/all-artworks/${viewDetailsData._id}/like`,
+                {
+                    method: "PATCH",
+                    headers: {
+                        "Content-Type": "application/json",
+                        authorization: `Bearer ${user.accessToken}`
+                    },
+                    body: JSON.stringify({ action: likesBtn ? "inc" : "dec" })
+                }
+            );
+
             const updatedData = await res.json();
-            setLikes(updatedData.likesCount);
+
+
+            setLikes(prev => (likesBtn ? prev + 1 : prev - 1));
+            setLikesBtn(!likesBtn);
         } catch (error) {
             console.error(error);
         } finally {
@@ -169,11 +157,7 @@ const ArtworkDetailsPage = () => {
 
                     <div className="flex flex-col sm:flex-row gap-4">
                         <button
-                            onClick={() => {
-                                if (likesBtn) handleLikesCount(viewDetailsData._id);
-                                else handleDislikes(viewDetailsData._id);
-                                setLikesBtn(!likesBtn);
-                            }}
+                            onClick={handleToggleLike}
                             className="flex-1 bg-purple-600 hover:bg-purple-700 text-white font-semibold py-3 rounded-lg shadow-md transition duration-300 break-words hover:cursor-pointer"
                         >
                             {likesBtn ? (

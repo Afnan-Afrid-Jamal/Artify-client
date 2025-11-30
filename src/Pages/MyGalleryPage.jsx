@@ -14,7 +14,7 @@ const MyGalleryPage = () => {
 
     useEffect(() => {
         if (!user.email) return;
-        fetch(`https://artify-server-sigma.vercel.app/my-gallery?email=${user.email}`, {
+        fetch(`https://artify-2a0f9.web.app/my-gallery?email=${user.email}`, {
             headers: {
                 authorization: `Bearer ${user.accessToken}`
             }
@@ -38,7 +38,7 @@ const MyGalleryPage = () => {
         }).then(async (result) => {
             if (result.isConfirmed) {
                 try {
-                    const res = await fetch(`https://artify-server-sigma.vercel.app/delete-artworks/${id}`, {
+                    const res = await fetch(`https://artify-2a0f9.web.app/delete-artworks/${id}`, {
                         method: "DELETE",
                         headers: {
                             authorization: `Bearer ${user.accessToken}`
@@ -86,7 +86,7 @@ const MyGalleryPage = () => {
             visibility: event.target.visibility.value
         };
 
-        fetch(`https://artify-server-sigma.vercel.app/update-artwork/${id}`, {
+        fetch(`https://artify-2a0f9.web.app/update-artwork/${id}`, {
             method: "PUT",
             headers: {
                 "Content-Type": "application/json",
