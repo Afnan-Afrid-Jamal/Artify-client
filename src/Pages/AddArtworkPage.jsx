@@ -25,7 +25,7 @@ const AddArtworkPage = () => {
             createdAt: new Date(),
         };
 
-        fetch("http://localhost:3000/all-artworks", {
+        fetch("https://artify-server-sigma.vercel.app/all-artworks", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",

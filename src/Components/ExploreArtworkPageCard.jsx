@@ -49,7 +49,7 @@ const ExploreArtworkPageCard = ({ singlePublicData }) => {
                         </div>
                     </div>
 
-                    {/* Button Always at Bottom */}
+                    {/* Button */}
                     <Link to={`/artwork-details/${singlePublicData._id}`}>
                         <button className="w-full mt-5 bg-purple-600 text-white font-semibold py-2.5 rounded-lg shadow-md
                 hover:bg-purple-700 hover:shadow-lg active:bg-purple-800 active:shadow-inner 

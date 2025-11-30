@@ -74,7 +74,6 @@ const AuthProvider = ({ children }) => {
     const customLoginWithEmailAndPassword = (email, password) => {
 
         setLoading(true)
-        // return add kora holo
         return signInWithEmailAndPassword(auth, email, password)
             .then((userCredential) => {
 

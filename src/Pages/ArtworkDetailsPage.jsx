@@ -20,7 +20,7 @@ const ArtworkDetailsPage = () => {
         if (!user?.accessToken) return;
 
         setLoading(true);
-        fetch(`http://localhost:3000/all-artworks/${params.id}`, {
+        fetch(`https://artify-server-sigma.vercel.app/all-artworks/${params.id}`, {
             headers: {
                 authorization: `Bearer ${user.accessToken}`
             }
@@ -54,7 +54,7 @@ const ArtworkDetailsPage = () => {
         };
 
         try {
-            const res = await fetch("http://localhost:3000/favourites", {
+            const res = await fetch("https://artify-server-sigma.vercel.app/favourites", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -84,7 +84,7 @@ const ArtworkDetailsPage = () => {
     const handleLikesCount = async (id) => {
         setLoading(true);
         try {
-            const res = await fetch(`http://localhost:3000/all-artworks/${id}/like`, {
+            const res = await fetch(`https://artify-server-sigma.vercel.app/all-artworks/${id}/like`, {
                 method: "PATCH",
                 headers: {
                     "Content-Type": "application/json",
@@ -104,7 +104,7 @@ const ArtworkDetailsPage = () => {
     const handleDislikes = async (id) => {
         setLoading(true);
         try {
-            const res = await fetch(`http://localhost:3000/all-artworks/${id}/like`, {
+            const res = await fetch(`https://artify-server-sigma.vercel.app/all-artworks/${id}/like`, {
                 method: "PATCH",
                 headers: {
                     "Content-Type": "application/json",

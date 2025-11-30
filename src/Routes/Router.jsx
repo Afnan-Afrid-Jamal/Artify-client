@@ -24,7 +24,7 @@ const router = createBrowserRouter([
                 index: true,
                 element: <HomePage />,
                 loader: () => {
-                    return fetch("http://localhost:3000/all-artworks/most-recent").then(res => res.json());
+                    return fetch("https://artify-server-sigma.vercel.app/all-artworks/most-recent").then(res => res.json());
                 },
                 hydrateFallbackElement: <LoadingSpinner></LoadingSpinner>
             },
@@ -32,7 +32,7 @@ const router = createBrowserRouter([
                 path: "home",
                 element: <HomePage />,
                 loader: () => {
-                    return fetch("http://localhost:3000/all-artworks/most-recent").then(res => res.json());
+                    return fetch("https://artify-server-sigma.vercel.app/all-artworks/most-recent").then(res => res.json());
                 },
                 hydrateFallbackElement: <LoadingSpinner></LoadingSpinner>
             },

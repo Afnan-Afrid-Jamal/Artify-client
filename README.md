@@ -1,16 +1,50 @@
-# React + Vite
+# ARTIFY - Creative Artwork Showcase Platform
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+### **Project Theme**
 
-Currently, two official plugins are available:
+An innovative online art-sharing platform where artists can upload and display their creative works, explore other artists' galleries, curate favorites, and connect through appreciation and interaction. The platform emphasizes creativity, modern UI, and clean navigation for art lovers.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+---
 
-## React Compiler
+### 🔗 **Live Demo**
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+[👉 Visit ARTIFY Live](https://artify-2a0f9.web.app/)
 
-## Expanding the ESLint configuration
+---
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+### ✨ **Key Features**
+
+- 🎨 Upload and showcase creative artworks with detailed information
+- 🔍 Explore diverse artworks with search and category filtering
+- ❤️ Like artworks and curate personal favorites collection
+- 👥 Connect with artists and art enthusiasts worldwide
+- 🌙 Dark/Light theme toggle with modern responsive design
+
+---
+
+### 🧩 **Technologies & NPM Packages Used**
+
+- **React** (`^19.1.1`)
+- **React Router** (`^7.9.4`)
+- **Firebase** (`^12.4.0`)
+- **Tailwind CSS** (`^4.1.16`)
+- **React Icons** (`^5.5.0`)
+- **React Hot Toast** (`^2.4.0`)
+- **React Awesome Reveal** (`^4.1.0`)
+- **MongoDB** (`^4.0.0`)
+- **Express.js** (`^4.18.0`)
+- **Node.js** (`^18.0.0`)
+
+---
+
+### 🚀 **Purpose**
+
+Artify was created to provide a dedicated space for artists to showcase their creativity, connect with art enthusiasts, and build a vibrant community around shared artistic passions.
+
+---
+
+### 👨‍💻 **Developer**
+
+Developed by **Afnan Afrid Jamal**
+
+---

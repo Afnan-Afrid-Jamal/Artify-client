@@ -16,7 +16,7 @@ const ExploreArtworkPage = () => {
 
 
         setLoading(true);
-        fetch("http://localhost:3000/all-artworks/public")
+        fetch("https://artify-server-sigma.vercel.app/all-artworks/public")
             .then(res => res.json())
             .then(data => {
                 setAllPublicData(data);
@@ -38,7 +38,7 @@ const ExploreArtworkPage = () => {
 
         setLoading(true);
         try {
-            const res = await fetch(`http://localhost:3000/all-artworks/search?search=${encodeURIComponent(searchText)}`)
+            const res = await fetch(`https://artify-server-sigma.vercel.app/all-artworks/search?search=${encodeURIComponent(searchText)}`)
 
             const data = await res.json();
             setShowData(data);
@@ -125,7 +125,7 @@ const ExploreArtworkPage = () => {
                                     type="radio"
                                     name="filter"
                                     aria-label="Digital Art"
-                                    value="digitalArt"
+                                    value="digital"
                                     onChange={(e) => handleFilter(e.target.value)}
                                 />
 
