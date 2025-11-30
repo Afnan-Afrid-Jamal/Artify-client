@@ -31,6 +31,7 @@ An innovative online art-sharing platform where artists can upload and display t
 - **React Icons** (`^5.5.0`)
 - **React Hot Toast** (`^2.4.0`)
 - **React Awesome Reveal** (`^4.1.0`)
+- **React Simple Typewriter** (`^5.0.1`)
 - **MongoDB** (`^4.0.0`)
 - **Express.js** (`^4.18.0`)
 - **Node.js** (`^18.0.0`)
