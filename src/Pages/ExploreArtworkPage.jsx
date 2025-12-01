@@ -71,6 +71,7 @@ const ExploreArtworkPage = () => {
 
     return (
         <>
+            <title>ARTIFY - explore artwork</title>
             {loading ? (
                 <LoadingSpinner />
             ) : (

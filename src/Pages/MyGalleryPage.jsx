@@ -117,6 +117,7 @@ const MyGalleryPage = () => {
 
     return (
         <>
+            <title>ARTIFY - gallery</title>
             {myGalleryPageData.length === 0 ? (
                 <p className="min-h-screen text-center mt-10 text-gray-500 text-2xl sm:text-lg md:text-xl lg:text-2xl font-medium">
                     No artworks found!

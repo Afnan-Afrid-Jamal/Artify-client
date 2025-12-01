@@ -128,10 +128,10 @@ const Navbar = () => {
                             <UserProfileDropdown />
                         ) : (
                             <>
-                                <Link to="/login" className="btn btn-ghost text-white border border-purple-300">
+                                <Link to="/login" className="btn bg-purple-600 text-white border border-purple-300 hover:bg-black hover:text-purple-400 hover:border-purple-500">
                                     Login
                                 </Link>
-                                <Link to="/register" className="btn bg-white text-purple-700 hover:bg-gray-100">
+                                <Link to="/register" className="btn bg-white text-purple-700 hover:bg-black hover:text-white hover:border-purple-500">
                                     Register
                                 </Link>
                             </>
