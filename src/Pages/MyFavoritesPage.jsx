@@ -15,7 +15,7 @@ const MyFavoritesPage = () => {
         if (!user?.email) return;
 
         setLoading(true);
-        fetch(`https://artify-2a0f9.web.app/favourites-data?email=${user.email}`, {
+        fetch(`https://artify-server-sigma.vercel.app/favourites-data?email=${user.email}`, {
             headers: {
                 authorization: `Bearer ${user.accessToken}`
             }
@@ -42,7 +42,7 @@ const MyFavoritesPage = () => {
 
         if (result.isConfirmed) {
             try {
-                const res = await fetch(`https://artify-2a0f9.web.app/unfavourite/${id}`, {
+                const res = await fetch(`https://artify-server-sigma.vercel.app/unfavourite/${id}`, {
                     method: "DELETE",
                     headers: {
                         authorization: `Bearer ${user.accessToken}`

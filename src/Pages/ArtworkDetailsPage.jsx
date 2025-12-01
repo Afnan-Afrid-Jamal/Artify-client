@@ -83,7 +83,7 @@ const ArtworkDetailsPage = () => {
 
 
     const handleToggleLike = async () => {
-        setLoading(true);
+
         try {
             const res = await fetch(
                 `https://artify-server-sigma.vercel.app/all-artworks/${viewDetailsData._id}/like`,
@@ -104,8 +104,6 @@ const ArtworkDetailsPage = () => {
             setLikesBtn(!likesBtn);
         } catch (error) {
             console.error(error);
-        } finally {
-            setLoading(false);
         }
     };
 

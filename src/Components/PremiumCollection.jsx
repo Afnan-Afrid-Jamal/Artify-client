@@ -7,7 +7,7 @@ const PremiumCollection = () => {
     const [premiumData, setPremiumData] = useState([]);
 
     useEffect(() => {
-        fetch("https://artify-2a0f9.web.app/premium-collection")
+        fetch("https://artify-server-sigma.vercel.app/premium-collection")
             .then(res => res.json())
             .then(data => setPremiumData(data))
             .catch(err => console.error(err));
