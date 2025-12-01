@@ -7,13 +7,16 @@ import { FaHeart } from 'react-icons/fa';
 import { MdDelete, MdTipsAndUpdates } from 'react-icons/md';
 import Swal from 'sweetalert2';
 import { toast } from 'react-toastify';
+import LoadingSpinner from '../Components/LoadingSpinner';
 
 const MyGalleryPage = () => {
     const { user } = useContext(AuthContext);
     const [myGalleryPageData, setMyGalleryPageData] = useState([]);
+    const [loading, setLoading] = useState(true)
 
     useEffect(() => {
         if (!user.email) return;
+        setLoading(true)
         fetch(`https://artify-server-sigma.vercel.app/my-gallery?email=${user.email}`, {
             headers: {
                 authorization: `Bearer ${user.accessToken}`
@@ -22,6 +25,7 @@ const MyGalleryPage = () => {
             .then(res => res.json())
             .then(data => {
                 setMyGalleryPageData(data.data);
+                setLoading(false)
             });
     }, []);
 
@@ -73,8 +77,6 @@ const MyGalleryPage = () => {
 
     // Update
     const handleUpdate = (event, id) => {
-        window.location.reload();
-
         const updatedData = {
             imageURL: event.target.imageURL.value,
             title: event.target.title.value,
@@ -96,6 +98,13 @@ const MyGalleryPage = () => {
         })
             .then(res => res.json())
             .then(data => {
+                // FIXED: missing bracket added
+                setMyGalleryPageData(myGalleryPageData =>
+                    myGalleryPageData.map(item =>
+                        item._id === id ? { ...item, ...updatedData } : item
+                    )
+                );
+
                 if (data.success) {
                     toast.success(data.message);
                 } else {
@@ -104,6 +113,8 @@ const MyGalleryPage = () => {
             })
             .catch(err => toast.error(`Something went wrong: ${err}`));
     };
+
+    if (loading) return <LoadingSpinner></LoadingSpinner>
 
     return (
         <>
@@ -352,7 +363,7 @@ const MyGalleryPage = () => {
                                         </dialog>
 
                                         {/* DELETE BUTTON */}
-                                        <button
+                                        <button button
                                             onClick={() => handleDelete(art._id)}
                                             className="flex-1 flex items-center justify-center gap-2 border-2 border-red-500 text-red-500 font-semibold rounded-lg shadow-md hover:bg-red-700/40 hover:shadow-lg transition duration-200 hover:cursor-pointer"
                                         >
@@ -361,11 +372,11 @@ const MyGalleryPage = () => {
                                         </button>
 
                                     </div>
-                                </div>
-                            </div>
+                                </div >
+                            </div >
                         ))}
-                    </div>
-                </div>
+                    </div >
+                </div >
             )}
         </>
     );
