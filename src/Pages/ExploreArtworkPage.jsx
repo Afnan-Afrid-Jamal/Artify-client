@@ -55,9 +55,12 @@ const ExploreArtworkPage = () => {
     const handleFilter = (radioValue) => {
 
         if (radioValue === "") {
+
             setShowData(allPublicData);
             return;
         }
+
+
 
         setShowData(
             allPublicData.filter(data =>
@@ -98,8 +101,8 @@ const ExploreArtworkPage = () => {
                         </div>
                     </div>
                     <div>
-                        <div className='flex justify-center items-center mb-16'>
-                            <form className="filter flex gap-2 md:gap-3">
+                        <div className='flex justify-center items-center my-16'>
+                            <form className="filter flex gap-2 justify-center items-center md:gap-3">
 
                                 {/* Reset Button */}
                                 <input
@@ -174,7 +177,7 @@ const ExploreArtworkPage = () => {
                     </div>
 
                     {/* Grid of Artworks */}
-                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-12">
                         {showData && showData.length > 0 ? (
                             showData.map(singlePublicData => (
                                 <ExploreArtworkPageCard

@@ -49,7 +49,7 @@ const Navbar = () => {
     return (
         <div
             data-navbar
-            className="shadow-sm bg-gradient-to-r from-purple-600 via-purple-700 to-violet-800 backdrop-blur-lg bg-opacity-95 border-b border-white/20 relative z-50"
+            className="shadow-sm bg-linear-to-r from-purple-600 via-purple-700 to-violet-800 backdrop-blur-lg bg-opacity-95 border-b border-white/20 relative z-50"
         >
             <div className="navbar px-4 md:px-0 max-w-7xl mx-auto">
 

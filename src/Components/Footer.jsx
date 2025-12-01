@@ -1,10 +1,10 @@
 import React from 'react';
 import { CiFacebook, CiInstagram, CiLinkedin, CiTwitter } from "react-icons/ci";
-import { SlSocialTwitter } from 'react-icons/sl';
+
 
 const Footer = () => {
     return (
-        <div className="bg-gradient-to-r from-purple-700 via-purple-800 to-violet-900 shadow-sm">
+        <div className="bg-linear-to-r from-purple-700 via-purple-800 to-violet-900 shadow-sm">
             <footer className="footer text-base-content p-10 text-white flex flex-col md:flex-row lg:flex-row items-center justify-around">
 
                 {/* Logo & Tagline */}
@@ -39,7 +39,7 @@ const Footer = () => {
                                 <CiFacebook size={40} />
                             </a>
                             <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" className="link link-hover">
-                                <img src="../../public/xIconpng.png" alt="x-social media-icon" className='w-7 h-7 invert' />
+                                <img src={`https://i.ibb.co/sdtHCrrB/xIconpng.png`} alt="x-social media-icon" className='w-7 h-7 invert' />
                             </a>
                             <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className="link link-hover">
                                 <CiInstagram size={40} />

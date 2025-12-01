@@ -98,18 +98,17 @@ const MyGalleryPage = () => {
         })
             .then(res => res.json())
             .then(data => {
-                // FIXED: missing bracket added
                 setMyGalleryPageData(myGalleryPageData =>
                     myGalleryPageData.map(item =>
                         item._id === id ? { ...item, ...updatedData } : item
                     )
                 );
-
-                if (data.success) {
-                    toast.success(data.message);
-                } else {
-                    toast.info(data.message);
-                }
+                toast.success("Successfully Updated!", {
+                    style: {
+                        background: "black",
+                        color: "white"
+                    }
+                });
             })
             .catch(err => toast.error(`Something went wrong: ${err}`));
     };
@@ -208,7 +207,7 @@ const MyGalleryPage = () => {
                                             Update
                                         </button>
 
-                                        {/* MODAL (ID FIXED) */}
+                                        {/* MODAL */}
                                         <dialog id={`modal_${art._id}`} className="modal modal-middle">
                                             <div className="modal-box max-w-4xl w-11/12 sm:w-full mx-auto p-4 sm:p-6 bg-black">
                                                 <h3 className="font-bold text-lg sm:text-xl md:text-2xl mb-4 sm:mb-6 text-purple-500 text-center">

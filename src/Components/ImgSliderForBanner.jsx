@@ -27,7 +27,7 @@ const ImgSliderForBanner = () => {
     }, []);
 
     return (
-        <div className="max-w-7xl mx-auto px-4 py-8">
+        <div className="max-w-11/12 mx-auto px-4 py-8">
             <Slider {...settings}>
                 {artworks.map((art, index) => (
                     <div key={index} className="relative px-1 sm:px-2">
@@ -45,16 +45,16 @@ const ImgSliderForBanner = () => {
                                     words={[
                                         `Discover "${art.title}" by "${art.artistName}"`
                                     ]}
-                                    loop={3} // Typewriter runs once per slide
+                                    loop={3}
                                     cursor
                                     cursorStyle="|"
                                     typeSpeed={80}
                                     deleteSpeed={10}
-                                    delaySpeed={2000} // wait 2s before deleting
+                                    delaySpeed={2000}
                                 />
                             </h1>
 
-                            {/* Optional CTA Button */}
+                            {/* Button */}
                             <Link to={`/artwork-details/${art._id}`} className="bg-purple-600 hover:bg-purple-700 text-white font-semibold py-2.5 px-5 rounded-lg shadow-md transition duration-300">
                                 View Details
                             </Link>

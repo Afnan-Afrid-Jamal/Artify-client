@@ -5,7 +5,7 @@ const LightAndDarkMode = () => {
     const [checked, setChecked] = useState(false);
 
     useEffect(() => {
-        // Check if dark mode is enabled in localStorage
+
         const isDark = localStorage.getItem('darkMode') === 'true';
         setChecked(isDark);
         toggleDarkMode(isDark);
@@ -18,8 +18,8 @@ const LightAndDarkMode = () => {
             body.style.backgroundColor = '#1A1A2E';
             body.style.color = '#ffffff';
         } else {
-            body.style.backgroundColor = '#f2e3fc';  // Very light purple tint
-            body.style.color = '#1F2937';           // Professional Dark Text
+            body.style.backgroundColor = '#f2e3fc';
+            body.style.color = '#1F2937';
         }
 
         localStorage.setItem('darkMode', isDark);

@@ -3,7 +3,7 @@ import { FaPalette, FaUsers, FaHeart } from "react-icons/fa";
 
 const FeatureInfo = () => {
     return (
-        <section className="max-w-11/12 mx-auto my-20 px-4 py-12 bg-gradient-to-r from-purple-700 via-purple-800 to-violet-900 rounded-3xl shadow-xl">
+        <section className="max-w-11/12 mx-auto my-20 px-4 py-12 bg-linear-to-r from-purple-700 via-purple-800 to-violet-900 rounded-3xl shadow-xl">
             <h2 className="text-3xl sm:text-4xl font-extrabold text-center text-white mb-15">
                 Community Highlights
             </h2>

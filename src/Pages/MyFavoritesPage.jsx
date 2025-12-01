@@ -54,8 +54,8 @@ const MyFavoritesPage = () => {
                 if (data.success || res.ok) {
                     setUserFavouritesData(prev => prev.filter(art => art._id !== id));
                     Swal.fire({
-                        title: "Deleted!",
-                        text: "Your artwork has been removed from favourites.",
+                        title: "Removed!",
+                        text: "This artwork has been removed from favourites.",
                         icon: "success",
                     });
                 } else {
