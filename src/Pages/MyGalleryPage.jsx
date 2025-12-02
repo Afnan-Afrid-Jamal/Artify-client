@@ -124,7 +124,7 @@ const MyGalleryPage = () => {
                 </p>
             ) : (
                 <div className="max-w-11/12 mx-auto py-10 px-4">
-                    <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-400 text-center mb-10">
+                    <h1 className="text-3xl sm:text-3xl md:text-4xl font-bold text-purple-500 text-center mb-10">
                         My Gallery
                     </h1>
 

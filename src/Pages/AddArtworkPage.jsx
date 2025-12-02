@@ -188,7 +188,7 @@ const AddArtworkPage = () => {
                         <div>
                             <button
                                 type="submit"
-                                className="w-full py-3 bg-violet-500 hover:bg-violet-600 text-white font-semibold rounded-xl transition-all"
+                                className="w-full py-3 bg-violet-500 hover:bg-violet-600 text-white font-semibold rounded-xl transition-all hover:cursor-pointer"
                             >
                                 🎨 Add Artwork
                             </button>
