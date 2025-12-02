@@ -1,10 +1,13 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Slide } from 'react-awesome-reveal';
 import { FaHeart } from "react-icons/fa";
 import { Link } from "react-router";
+import { toast } from 'react-toastify';
+import { AuthContext } from '../Provider/AuthContext';
 
 const PremiumCollection = () => {
     const [premiumData, setPremiumData] = useState([]);
+    const { user } = useContext(AuthContext)
 
     useEffect(() => {
         fetch("https://artify-server-sigma.vercel.app/premium-collection")
@@ -79,7 +82,16 @@ const PremiumCollection = () => {
                                     </div>
 
                                     <Link to={`/artwork-details/${artwork._id}`}>
-                                        <button className="w-full mt-5 bg-purple-500 hover:bg-purple-600 text-white font-semibold py-3 rounded-lg shadow-lg hover:shadow-purple-400/50 hover:scale-105 transition-all duration-300">
+                                        <button onClick={() => {
+                                            if (!user) {
+                                                toast.error("Please login to continue!", {
+                                                    style: {
+                                                        background: "black",
+                                                        color: "white"
+                                                    }
+                                                });
+                                            }
+                                        }} className="w-full mt-5 bg-purple-500 hover:bg-purple-600 text-white font-semibold py-3 rounded-lg shadow-lg hover:shadow-purple-400/50 hover:scale-105 transition-all duration-300 hover:cursor-pointer">
                                             View Details
                                         </button>
                                     </Link>

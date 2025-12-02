@@ -17,7 +17,7 @@ const ArtworkDetailsPage = () => {
     const params = useParams();
 
     useEffect(() => {
-        if (!user?.accessToken) return;
+
 
         setLoading(true);
         fetch(`https://artify-server-sigma.vercel.app/all-artworks/${params.id}`, {
@@ -29,6 +29,7 @@ const ArtworkDetailsPage = () => {
             .then(data => {
                 setViewDetailsData(data);
                 setLikes(data.likesCount);
+                setLoading(false)
             })
             .catch(err => console.error(err))
             .finally(() => setLoading(false));

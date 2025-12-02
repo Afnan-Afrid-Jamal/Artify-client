@@ -1,7 +1,9 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Zoom } from 'react-awesome-reveal';
 import { FaHeart } from 'react-icons/fa';
 import { Link } from 'react-router';
+import { toast } from 'react-toastify';
+import { AuthContext } from '../Provider/AuthContext';
 
 const LatestArtworkCard = ({ eachLatestArtworkdata }) => {
     const {
@@ -14,6 +16,8 @@ const LatestArtworkCard = ({ eachLatestArtworkdata }) => {
         category,
         price
     } = eachLatestArtworkdata;
+
+    const { user } = useContext(AuthContext)
 
     return (
         <Zoom>
@@ -62,7 +66,16 @@ const LatestArtworkCard = ({ eachLatestArtworkdata }) => {
 
                     {/* Button Always at Bottom */}
                     <Link to={`/artwork-details/${_id}`}>
-                        <button className="w-full mt-5 bg-purple-600 text-white font-semibold py-2.5 rounded-lg shadow-md
+                        <button onClick={() => {
+                            if (!user) {
+                                toast.error("Please login to continue!", {
+                                    style: {
+                                        background: "black",
+                                        color: "white"
+                                    }
+                                });
+                            }
+                        }} className="w-full mt-5 bg-purple-600 text-white font-semibold py-2.5 rounded-lg shadow-md
                 hover:bg-purple-700 hover:shadow-lg active:bg-purple-800 active:shadow-inner 
                 transition-all duration-200 hover:cursor-pointer truncate">
                             View Details

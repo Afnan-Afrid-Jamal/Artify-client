@@ -1,12 +1,15 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import Slider from 'react-slick';
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { Typewriter } from 'react-simple-typewriter';
 import { Link } from 'react-router';
+import { toast } from 'react-toastify';
+import { AuthContext } from '../Provider/AuthContext';
 
 const ImgSliderForBanner = () => {
     const [artworks, setArtworks] = useState([]);
+    const { user } = useContext(AuthContext)
 
     const settings = {
         dots: true,
@@ -55,7 +58,16 @@ const ImgSliderForBanner = () => {
                             </h1>
 
                             {/* Button */}
-                            <Link to={`/artwork-details/${art._id}`} className="bg-purple-600 hover:bg-purple-700 text-white font-semibold py-2.5 px-5 rounded-lg shadow-md transition duration-300">
+                            <Link onClick={() => {
+                                if (!user) {
+                                    toast.error("Please login to continue!", {
+                                        style: {
+                                            background: "black",
+                                            color: "white"
+                                        }
+                                    });
+                                }
+                            }} to={`/artwork-details/${art._id}`} className="bg-purple-600 hover:bg-purple-700 text-white font-semibold py-2.5 px-5 rounded-lg shadow-md transition duration-300">
                                 View Details
                             </Link>
                         </div>

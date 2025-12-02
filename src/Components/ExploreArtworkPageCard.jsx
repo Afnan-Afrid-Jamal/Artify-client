@@ -1,9 +1,14 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Fade } from 'react-awesome-reveal';
 import { FaHeart } from 'react-icons/fa';
 import { Link } from 'react-router';
+import { toast } from 'react-toastify';
+import { AuthContext } from '../Provider/AuthContext';
 
 const ExploreArtworkPageCard = ({ singlePublicData }) => {
+
+    const { user } = useContext(AuthContext)
+
     return (
         <Fade triggerOnce>
             <div className="rounded-2xl shadow-2xl hover:shadow-purple-500/50 transition-all duration-500 overflow-hidden border-2 border-purple-400 flex flex-col">
@@ -51,7 +56,16 @@ const ExploreArtworkPageCard = ({ singlePublicData }) => {
 
                     {/* Button */}
                     <Link to={`/artwork-details/${singlePublicData._id}`}>
-                        <button className="w-full mt-5 bg-purple-600 text-white font-semibold py-2.5 rounded-lg shadow-md
+                        <button onClick={() => {
+                            if (!user) {
+                                toast.error("Please login to continue!", {
+                                    style: {
+                                        background: "black",
+                                        color: "white"
+                                    }
+                                });
+                            }
+                        }} className="w-full mt-5 bg-purple-600 text-white font-semibold py-2.5 rounded-lg shadow-md
                 hover:bg-purple-700 hover:shadow-lg active:bg-purple-800 active:shadow-inner 
                 transition-all duration-200 hover:cursor-pointer truncate">
                             View Details

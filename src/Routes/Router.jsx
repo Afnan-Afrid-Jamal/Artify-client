@@ -51,12 +51,11 @@ const router = createBrowserRouter([
             {
                 path: "explore-artwork",
                 element: <ExploreArtworkPage />,
-                hydrateFallbackElement: <LoadingSpinner></LoadingSpinner>
+
             },
             {
                 path: "artwork-details/:id",
-                element: <ArtworkDetailsPage />,
-                hydrateFallbackElement: <LoadingSpinner></LoadingSpinner>
+                element: <PrivateRoute><ArtworkDetailsPage /></PrivateRoute>,
             },
             {
                 path: "my-gallery",
