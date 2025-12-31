@@ -52,9 +52,9 @@ Developed by **Afnan Afrid Jamal**
 
 ## 🛠️ How to Run Locally
 
-Follow these steps to set up the project on your local machine:
+Follow these steps to set up the **Artify** project on your local machine:
 
 ### 1. Clone the Repository
 ```bash
-git clone [https://github.com/Afnan-Afrid-Jamal/ScholarStream.git](https://github.com/Afnan-Afrid-Jamal/ScholarStream.git)
-cd ScholarStream
+git clone [https://github.com/Afnan-Afrid-Jamal/Artify-Client.git](https://github.com/Afnan-Afrid-Jamal/Artify-Client.git)
+cd Artify-Client
