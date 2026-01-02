@@ -56,16 +56,7 @@ const ExploreArtworkPageCard = ({ singlePublicData }) => {
 
                     {/* Button */}
                     <Link to={`/artwork-details/${singlePublicData._id}`}>
-                        <button onClick={() => {
-                            if (!user) {
-                                toast.error("Please login to continue!", {
-                                    style: {
-                                        background: "black",
-                                        color: "white"
-                                    }
-                                });
-                            }
-                        }} className="w-full mt-5 bg-purple-600 text-white font-semibold py-2.5 rounded-lg shadow-md
+                        <button className="w-full mt-5 bg-purple-600 text-white font-semibold py-2.5 rounded-lg shadow-md
                 hover:bg-purple-700 hover:shadow-lg active:bg-purple-800 active:shadow-inner 
                 transition-all duration-200 hover:cursor-pointer truncate">
                             View Details

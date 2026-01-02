@@ -49,7 +49,7 @@ const Navbar = () => {
     return (
         <div
             data-navbar
-            className="shadow-sm bg-linear-to-r from-purple-600 via-purple-700 to-violet-800 backdrop-blur-lg bg-opacity-95 border-b border-white/20 relative z-50"
+            className="shadow-sm bg-linear-to-r from-purple-600 via-purple-700 to-violet-800 backdrop-blur-lg bg-opacity-95 border-b border-white/20 relative sticky top-0 z-50"
         >
             <div className="navbar px-4 md:px-0 max-w-7xl mx-auto">
 
@@ -81,9 +81,14 @@ const Navbar = () => {
                         >
                             {renderNavLink('/home', 'Home', true)}
                             {renderNavLink('/explore-artwork', 'Explore Artworks', true)}
-                            {renderNavLink('/add-artwork', 'Add Artwork', true)}
-                            {renderNavLink('/my-gallery', 'My Gallery', true)}
-                            {renderNavLink('/my-favourites', 'My Favorites', true)}
+                            {renderNavLink('/about-us', 'About Us', true)}
+                            {user && (
+                                <>
+                                    {renderNavLink('/add-artwork', 'Add Artwork')}
+                                    {renderNavLink('/my-gallery', 'My Gallery')}
+                                    {renderNavLink('/my-favourites', 'My Favorites')}
+                                </>
+                            )}
 
                             <LightAndDarkMode />
 
@@ -111,9 +116,14 @@ const Navbar = () => {
                     <ul className="menu menu-horizontal px-1 poppins-font flex gap-6">
                         {renderNavLink('/home', 'Home')}
                         {renderNavLink('/explore-artwork', 'Explore Artworks')}
-                        {renderNavLink('/add-artwork', 'Add Artwork')}
-                        {renderNavLink('/my-gallery', 'My Gallery')}
-                        {renderNavLink('/my-favourites', 'My Favorites')}
+                        {renderNavLink('/about-us', 'About Us')}
+                        {user && (
+                            <>
+                                {renderNavLink('/add-artwork', 'Add Artwork')}
+                                {renderNavLink('/my-gallery', 'My Gallery')}
+                                {renderNavLink('/my-favourites', 'My Favorites')}
+                            </>
+                        )}
                     </ul>
                 </div>
 

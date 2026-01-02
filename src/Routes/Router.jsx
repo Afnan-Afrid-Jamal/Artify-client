@@ -12,6 +12,7 @@ import MyFavoritesPage from "../Pages/MyFavoritesPage";
 import ErrorPage from "../Pages/ErrorPage";
 import LoadingSpinner from "../Components/LoadingSpinner";
 import PrivateRoute from "./PrivateRoute";
+import AboutUs from "../Pages/AboutUs";
 
 
 
@@ -54,8 +55,13 @@ const router = createBrowserRouter([
 
             },
             {
+                path: "about-us",
+                element: <AboutUs />,
+
+            },
+            {
                 path: "artwork-details/:id",
-                element: <PrivateRoute><ArtworkDetailsPage /></PrivateRoute>,
+                element: <ArtworkDetailsPage />,
             },
             {
                 path: "my-gallery",

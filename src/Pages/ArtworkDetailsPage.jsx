@@ -20,11 +20,7 @@ const ArtworkDetailsPage = () => {
 
 
         setLoading(true);
-        fetch(`https://artify-server-sigma.vercel.app/all-artworks/${params.id}`, {
-            headers: {
-                authorization: `Bearer ${user.accessToken}`
-            }
-        })
+        fetch(`https://artify-server-sigma.vercel.app/all-artworks/${params.id}`)
             .then(res => res.json())
             .then(data => {
                 setViewDetailsData(data);
@@ -33,7 +29,7 @@ const ArtworkDetailsPage = () => {
             })
             .catch(err => console.error(err))
             .finally(() => setLoading(false));
-    }, [user, params.id]);
+    }, [params.id]);
 
     const handleAddFavourites = async () => {
         const favouritesData = {
@@ -161,26 +157,31 @@ const ArtworkDetailsPage = () => {
                                 onClick={handleToggleLike}
                                 className="flex-1 bg-purple-600 hover:bg-purple-700 text-white font-semibold py-3 rounded-lg shadow-md transition duration-300 break-words hover:cursor-pointer"
                             >
-                                {likesBtn ? (
-                                    <div className="flex items-center justify-center gap-1">
+                                {
+                                    !user ? <div className="flex items-center justify-center gap-1">
                                         <FaHeart className="text-xl" />
-                                        <span className="leading-none">Like</span>
-                                    </div>
-                                ) : (
-                                    <div className="flex items-center justify-center gap-1">
-                                        <FaHeartCrack className="inline mr-2" />
-                                        <span className="leading-none">Dislike</span>
-                                    </div>
-                                )}
+                                        <span className="leading-none">Login to admire</span>
+                                    </div> :
+                                        likesBtn ? (
+                                            <div className="flex items-center justify-center gap-1">
+                                                <FaHeart className="text-xl" />
+                                                <span className="leading-none">Like</span>
+                                            </div>
+                                        ) : (
+                                            <div className="flex items-center justify-center gap-1">
+                                                <FaHeartCrack className="inline mr-2" />
+                                                <span className="leading-none">Dislike</span>
+                                            </div>
+                                        )}
                             </button>
 
                             <button
                                 onClick={handleAddFavourites}
-                                disabled={isAddFavouritesBtnDisable}
+                                disabled={isAddFavouritesBtnDisable && !user}
                                 className={`flex-1 bg-white border border-purple-600 hover:bg-purple-50 text-purple-600 font-semibold py-3 rounded-lg shadow-md transition duration-300 break-words hover:cursor-pointer ${isAddFavouritesBtnDisable ? "opacity-30 cursor-not-allowed" : ""}`}
                             >
                                 <FaStar className="inline mr-2" />
-                                {isAddFavouritesBtnDisable ? "Added to Favorites" : "Add to Favorites"}
+                                {!user ? "Sign in to favorite" : isAddFavouritesBtnDisable ? "Added to Favorites" : "Add to Favorites"}
                             </button>
                         </div>
                     </div>

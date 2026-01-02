@@ -10,6 +10,7 @@ import TopArtists from '../Components/TopArtist';
 
 // React Awesome Reveal
 import { Fade, Slide, Zoom } from "react-awesome-reveal";
+import FAQ from '../Components/FAQ';
 
 const HomePage = () => {
     const latestArtworkData = useLoaderData() || [];
@@ -59,6 +60,13 @@ const HomePage = () => {
                 <section className="py-6 md:py-10 lg:py-14">
                     <Fade triggerOnce>
                         <FeatureInfo />
+                    </Fade>
+                </section>
+
+                {/* FAQ section */}
+                <section className="py-4 md:py-10 lg:py-10">
+                    <Fade triggerOnce>
+                        <FAQ></FAQ>
                     </Fade>
                 </section>
             </div>
