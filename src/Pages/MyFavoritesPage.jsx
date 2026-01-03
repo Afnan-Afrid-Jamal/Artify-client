@@ -1,11 +1,11 @@
 import React, { useContext, useEffect, useState } from "react";
-import { FaHeart } from "react-icons/fa";
+import { FaHeart, FaRegHeart, FaUserCircle, FaEye, FaRulerCombined, FaTag } from "react-icons/fa";
+import { MdDelete } from "react-icons/md";
 import { AuthContext } from "../Provider/AuthContext";
 import LoadingSpinner from "../Components/LoadingSpinner";
 import Swal from "sweetalert2";
 
 const MyFavoritesPage = () => {
-
     const { user } = useContext(AuthContext);
     const [userFavouritesData, setUserFavouritesData] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -31,13 +31,16 @@ const MyFavoritesPage = () => {
     // Unfavourite handler
     const handleUnfavourite = async (id) => {
         const result = await Swal.fire({
-            title: "Are you sure?",
-            text: "You won't be able to revert this!",
-            icon: "warning",
+            title: "Remove from Favorites?",
+            text: "This artwork will be removed from your favorites list.",
+            icon: "question",
             showCancelButton: true,
-            confirmButtonColor: "#3085d6",
-            cancelButtonColor: "#d33",
-            confirmButtonText: "Yes, delete it!"
+            confirmButtonColor: "#8B5CF6",
+            cancelButtonColor: "#6B7280",
+            confirmButtonText: "Yes, remove it",
+            cancelButtonText: "Cancel",
+            background: '#1F2937',
+            color: '#F9FAFB'
         });
 
         if (result.isConfirmed) {
@@ -55,14 +58,20 @@ const MyFavoritesPage = () => {
                     setUserFavouritesData(prev => prev.filter(art => art._id !== id));
                     Swal.fire({
                         title: "Removed!",
-                        text: "This artwork has been removed from favourites.",
+                        text: "Artwork removed from favorites.",
                         icon: "success",
+                        background: '#1F2937',
+                        color: '#F9FAFB',
+                        confirmButtonColor: "#8B5CF6",
                     });
                 } else {
                     Swal.fire({
                         title: "Error!",
-                        text: data.message || "Failed to delete artwork.",
+                        text: data.message || "Failed to remove artwork.",
                         icon: "error",
+                        background: '#1F2937',
+                        color: '#F9FAFB',
+                        confirmButtonColor: "#8B5CF6",
                     });
                 }
             } catch (err) {
@@ -71,6 +80,9 @@ const MyFavoritesPage = () => {
                     title: "Error!",
                     text: "Something went wrong!",
                     icon: "error",
+                    background: '#1F2937',
+                    color: '#F9FAFB',
+                    confirmButtonColor: "#8B5CF6",
                 });
             }
         }
@@ -81,104 +93,156 @@ const MyFavoritesPage = () => {
 
     return (
         <>
-            <title>ARTIFY - favorite artworks</title>
-            <div className="max-w-11/12 mx-auto px-4 py-10">
-                <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-purple-600 text-center my-10">
-                    My Favourite Artworks
-                </h1>
+            <title>ARTIFY - Favorite Artworks</title>
+            <div className="min-h-screen bg-gradient-to-b from-gray-900 to-black text-white px-4 py-8">
+                {/* Header */}
+                <div className="max-w-7xl mx-auto mb-10">
+                    <div className="flex items-center justify-center gap-3 mb-4">
+                        <div className="p-3 bg-purple-600/20 rounded-2xl">
+                            <FaHeart className="text-3xl text-purple-400" />
+                        </div>
+                        <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">
+                            My Favorite Artworks
+                        </h1>
+                    </div>
+                    <p className="text-center text-gray-400 text-lg">
+                        {userFavouritesData.length} {userFavouritesData.length === 1 ? 'artwork' : 'artworks'} saved
+                    </p>
+                </div>
 
                 {userFavouritesData.length === 0 ? (
-                    <div className="flex flex-col items-center justify-center py-16 text-center">
-                        <div className="w-20 h-20 mb-4 flex items-center justify-center rounded-full bg-[#1f1f1f] border border-gray-700 shadow-md">
-                            <svg
-                                className="w-10 h-10 text-gray-400"
-                                fill="none"
-                                stroke="currentColor"
-                                strokeWidth="1.5"
-                                viewBox="0 0 24 24"
-                            >
-                                <path
-                                    strokeLinecap="round"
-                                    strokeLinejoin="round"
-                                    d="M9.75 9.75l4.5 4.5m0-4.5l-4.5 4.5M21 12A9 9 0 1 1 3 12a9 9 0 0 1 18 0Z"
-                                />
-                            </svg>
+                    // Empty State
+                    <div className="max-w-lg mx-auto mt-20 text-center">
+                        <div className="relative mb-8">
+                            <div className="w-32 h-32 mx-auto rounded-full bg-gradient-to-br from-purple-900/30 to-pink-900/30 flex items-center justify-center">
+                                <FaRegHeart className="w-16 h-16 text-purple-400/50" />
+                            </div>
+                            <div className="absolute -top-2 -right-2 w-10 h-10 bg-purple-500 rounded-full flex items-center justify-center">
+                                <FaHeart className="w-5 h-5 text-white" />
+                            </div>
                         </div>
-
-                        <h2 className="text-2xl font-semibold text-purple-600">No Data Found</h2>
-                        <p className="text-base max-w-sm mt-1">
-                            We couldn’t find any favourite artworks. Please add some to your favourites list.
+                        <h2 className="text-2xl font-bold text-white mb-3">No favorites yet</h2>
+                        <p className="text-gray-400 mb-8 max-w-md mx-auto">
+                            Start building your collection by clicking the heart icon on artworks you love
                         </p>
+                        <button
+                            className="px-6 py-3 bg-gradient-to-r from-purple-600 to-pink-600 rounded-lg font-medium hover:opacity-90 transition-all duration-300"
+                            onClick={() => window.history.back()}
+                        >
+                            Browse Artworks
+                        </button>
                     </div>
                 ) : (
-                    <div className="grid md:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-8 pb-8">
-                        {userFavouritesData.map((art) => (
-                            <div
-                                key={art._id}
-                                className="rounded-2xl shadow-md hover:shadow-xl transition-shadow duration-300 overflow-hidden border-2 border-purple-400 flex flex-col"
-                            >
-                                {/* Artwork Image */}
-                                <div className="relative">
-                                    <img
-                                        src={art.imageURL}
-                                        alt={art.title}
-                                        className="w-full h-64 sm:h-72 md:h-80 object-cover"
-                                    />
-                                    <div className="absolute top-3 right-3 bg-purple-400 px-3 py-1 rounded-full flex items-center gap-1 shadow-sm">
-                                        <FaHeart className="text-red-500" />
-                                        <span className="text-sm font-bold">{art.likesCount}</span>
+                    // Artworks Grid
+                    <div className="max-w-7xl mx-auto">
+                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                            {userFavouritesData.map((art) => (
+                                <div
+                                    key={art._id}
+                                    className="group bg-gray-800/40 backdrop-blur-sm rounded-2xl overflow-hidden border border-gray-700 hover:border-purple-500 transition-all duration-300 hover:shadow-2xl hover:shadow-purple-900/20"
+                                >
+                                    {/* Image Container */}
+                                    <div className="relative overflow-hidden">
+                                        <img
+                                            src={art.imageURL}
+                                            alt={art.title}
+                                            className="w-full h-64 object-cover group-hover:scale-105 transition-transform duration-500"
+                                        />
+                                        <div className="absolute top-4 right-4 flex items-center gap-2 bg-black/70 backdrop-blur-sm px-3 py-1.5 rounded-full">
+                                            <FaHeart className="text-red-400" />
+                                            <span className="font-bold text-white">{art.likesCount}</span>
+                                        </div>
+                                        <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-4">
+                                            <h3 className="text-xl font-bold text-white truncate">{art.title}</h3>
+                                        </div>
                                     </div>
-                                </div>
 
-                                {/* Card Body */}
-                                <div className="p-5 flex flex-col justify-between flex-1">
-                                    <div>
-                                        <h3 className="text-lg sm:text-xl font-bold truncate">{art.title}</h3>
-
-                                        <div className="flex items-center mt-2">
-                                            <img
-                                                src={art.artistPhotoURL}
-                                                alt={art.artistName}
-                                                className="w-9 h-9 rounded-full object-cover mr-3 border border-purple-400 shrink-0"
-                                            />
-                                            <div className="flex flex-col my-2">
-                                                <p className="font-medium truncate">{art.artistName}</p>
-                                                <p className="text-sm truncate">{art.artistEmail}</p>
+                                    {/* Content */}
+                                    <div className="p-5">
+                                        {/* Artist Info */}
+                                        <div className="flex items-center gap-3 mb-4">
+                                            <div className="relative">
+                                                <img
+                                                    src={art.artistPhotoURL}
+                                                    alt={art.artistName}
+                                                    className="w-12 h-12 rounded-full object-cover border-2 border-purple-500"
+                                                />
+                                                <div className="absolute -bottom-1 -right-1 w-5 h-5 bg-purple-600 rounded-full flex items-center justify-center">
+                                                    <FaUserCircle className="w-3 h-3 text-white" />
+                                                </div>
+                                            </div>
+                                            <div className="flex-1 min-w-0">
+                                                <p className="font-semibold truncate">{art.artistName}</p>
+                                                <p className="text-sm text-gray-400 truncate">{art.artistEmail}</p>
                                             </div>
                                         </div>
 
-                                        <div className="flex justify-between items-center my-4">
-                                            <span className="bg-purple-300 text-purple-800 px-3 py-1 rounded-full text-sm font-semibold truncate">
-                                                {art.category} • {art.medium}
+                                        {/* Description */}
+                                        <p className="text-gray-300 text-sm line-clamp-2 mb-4">
+                                            {art.description}
+                                        </p>
+
+                                        {/* Details Grid */}
+                                        <div className="grid grid-cols-2 gap-3 mb-4">
+                                            <div className="flex items-center gap-2 text-sm">
+                                                <div className="p-2 bg-purple-900/30 rounded-lg">
+                                                    <FaTag className="text-purple-400" />
+                                                </div>
+                                                <div>
+                                                    <p className="text-gray-400">Category</p>
+                                                    <p className="font-medium">{art.category}</p>
+                                                </div>
+                                            </div>
+                                            <div className="flex items-center gap-2 text-sm">
+                                                <div className="p-2 bg-purple-900/30 rounded-lg">
+                                                    <FaRulerCombined className="text-purple-400" />
+                                                </div>
+                                                <div>
+                                                    <p className="text-gray-400">Dimensions</p>
+                                                    <p className="font-medium truncate">{art.dimensions}</p>
+                                                </div>
+                                            </div>
+                                            <div className="flex items-center gap-2 text-sm">
+                                                <div className="p-2 bg-purple-900/30 rounded-lg">
+                                                    <FaEye className="text-purple-400" />
+                                                </div>
+                                                <div>
+                                                    <p className="text-gray-400">Visibility</p>
+                                                    <p className={`font-medium ${art.visibility === "public" ? "text-green-400" : "text-yellow-400"}`}>
+                                                        {art.visibility}
+                                                    </p>
+                                                </div>
+                                            </div>
+                                            <div className="flex items-center gap-2 text-sm">
+                                                <div className="p-2 bg-purple-900/30 rounded-lg">
+                                                    <span className="text-purple-400 font-bold">$</span>
+                                                </div>
+                                                <div>
+                                                    <p className="text-gray-400">Price</p>
+                                                    <p className="font-medium">${art.price}</p>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        {/* Medium Badge */}
+                                        <div className="mb-6">
+                                            <span className="inline-block px-3 py-1.5 bg-gradient-to-r from-purple-600/20 to-pink-600/20 text-purple-300 rounded-full text-sm font-medium border border-purple-500/30">
+                                                {art.medium}
                                             </span>
                                         </div>
 
-                                        <p className="text-sm mt-2 line-clamp-3 my-3">{art.description}</p>
-
-                                        <div className="flex justify-between items-center">
-                                            <p className="text-sm my-3 truncate">
-                                                <span className="font-semibold">Dimensions:</span> {art.dimensions}
-                                            </p>
-                                            <p
-                                                className={`mt-1 text-sm truncate ${art.visibility === "public" ? "text-green-500" : "text-red-500"
-                                                    }`}
-                                            >
-                                                Visibility: {art.visibility}
-                                            </p>
-                                        </div>
-
-                                        <p className="font-semibold text-lg my-3 truncate">Price: ${art.price}</p>
+                                        {/* Action Button */}
+                                        <button
+                                            onClick={() => handleUnfavourite(art._id)}
+                                            className="w-full flex items-center justify-center gap-2 py-3 bg-gradient-to-r from-red-600/20 to-red-700/30 hover:from-red-600/30 hover:to-red-700/40 text-red-400 border border-red-500/30 rounded-xl font-medium transition-all duration-300 hover:scale-[1.02] hover:shadow-lg hover:shadow-red-900/20"
+                                        >
+                                            <MdDelete className="text-lg" />
+                                            Remove from Favorites
+                                        </button>
                                     </div>
-
-                                    <button
-                                        onClick={() => handleUnfavourite(art._id)}
-                                        className="w-full mt-5 bg-linear-to-r from-purple-400 to-purple-600 text-white font-bold py-3 rounded-lg shadow-md hover:opacity-90 transition duration-200 hover:cursor-pointer"
-                                    >
-                                        Unfavorite
-                                    </button>
                                 </div>
-                            </div>
-                        ))}
+                            ))}
+                        </div>
                     </div>
                 )}
             </div>

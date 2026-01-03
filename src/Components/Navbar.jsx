@@ -85,9 +85,7 @@ const Navbar = () => {
                             {renderNavLink('/blogs', 'Blogs', true)}
                             {user && (
                                 <>
-                                    {renderNavLink('/add-artwork', 'Add Artwork')}
-                                    {renderNavLink('/my-gallery', 'My Gallery')}
-                                    {renderNavLink('/my-favourites', 'My Favorites')}
+                                    {renderNavLink('/dashboard', 'My Dashboard')}
                                 </>
                             )}
 
@@ -121,9 +119,7 @@ const Navbar = () => {
                         {renderNavLink('/blogs', 'Blogs')}
                         {user && (
                             <>
-                                {renderNavLink('/add-artwork', 'Add Artwork')}
-                                {renderNavLink('/my-gallery', 'My Gallery')}
-                                {renderNavLink('/my-favourites', 'My Favorites')}
+                                {renderNavLink('/dashboard', 'My Dashboard')}
                             </>
                         )}
                     </ul>

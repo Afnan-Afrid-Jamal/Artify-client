@@ -1,9 +1,11 @@
-import React, { useContext, useRef } from 'react';
+import React, { useContext, useRef, useState } from 'react';
 import { FcGoogle } from 'react-icons/fc';
 import { Link, useLocation, useNavigate } from 'react-router';
 import { AuthContext } from '../Provider/AuthContext';
 
 const LoginPage = () => {
+
+    const [autoFill, setAutoFill] = useState(false);
 
     const navigate = useNavigate();
     const location = useLocation();
@@ -54,6 +56,7 @@ const LoginPage = () => {
                                 type="email"
                                 name="email"
                                 placeholder="you@example.com"
+                                value={autoFill ? `afnanafrid@gmail.com` : ``}
                                 ref={emailRef}
                                 className="w-full border-2 border-violet-500 rounded-xl px-4 py-3 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-violet-300"
                             />
@@ -66,6 +69,7 @@ const LoginPage = () => {
                                 type="password"
                                 name="password"
                                 placeholder="Enter your password"
+                                value={autoFill ? `123456Aa@` : ``}
                                 className="w-full border-2 border-violet-500 rounded-xl px-4 py-3 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-violet-300"
                             />
                         </div>
@@ -106,7 +110,11 @@ const LoginPage = () => {
                             </Link>
                         </p>
                     </form>
+                    <button onClick={() => {
+                        setAutoFill(!autoFill)
+                    }} className='mt-2 w-full py-3 bg-violet-500 hover:bg-violet-600 text-white font-semibold rounded-xl transition-all duration-300 hover:cursor-pointer' >Try Demo Account</button>
                 </div>
+
             </div>
         </>
     );

@@ -15,8 +15,9 @@ import PrivateRoute from "./PrivateRoute";
 import AboutUs from "../Pages/AboutUs";
 import Blogs from "../Pages/Blogs";
 import ViewBlogDetails from "../Pages/ViewBlogDetails";
-
-
+import DashboardLayout from "../Layout/DashboardLayout";
+import MyProfile from "../Pages/MyProfile";
+import Statistics from "../Pages/Statistics";
 
 const router = createBrowserRouter([
     {
@@ -54,22 +55,18 @@ const router = createBrowserRouter([
             {
                 path: "explore-artwork",
                 element: <ExploreArtworkPage />,
-
             },
             {
                 path: "about-us",
                 element: <AboutUs />,
-
             },
             {
                 path: "blogs",
                 element: <Blogs />,
-
             },
             {
                 path: "blog-details/:id",
                 element: <ViewBlogDetails />,
-
             },
             {
                 path: "artwork-details/:id",
@@ -86,8 +83,34 @@ const router = createBrowserRouter([
                         <MyFavoritesPage />
                     </PrivateRoute>
                 ),
-
             },
+        ],
+    },
+    {
+        path: "/dashboard",
+        Component: DashboardLayout,
+        children: [
+            {
+                index: true,
+                element: <PrivateRoute><MyProfile></MyProfile></PrivateRoute>
+            },
+            {
+                path: "/dashboard/my-gallery",
+                element: <PrivateRoute><MyGalleryPage></MyGalleryPage></PrivateRoute>
+            },
+            {
+                path: "/dashboard/my-favorites",
+                element: <PrivateRoute><MyFavoritesPage></MyFavoritesPage></PrivateRoute>
+            },
+            {
+                path: "/dashboard/my-profile",
+                element: <PrivateRoute><MyProfile></MyProfile></PrivateRoute>
+            },
+            {
+                path: "/dashboard/statistics",
+                element: <PrivateRoute><Statistics></Statistics></PrivateRoute>
+            },
+
         ],
     },
     {

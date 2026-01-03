@@ -86,7 +86,7 @@ const Blogs = () => {
 
                                 <Link
                                     to={`/blog-details/${blog._id}`}
-                                    className="mt-6 w-full py-2.5 bg-purple-600 hover:bg-purple-700 text-center font-bold rounded-lg transition-all duration-300 shadow-md active:scale-95"
+                                    className="mt-6 w-full py-2.5 bg-purple-600 hover:bg-purple-700 text-center font-bold rounded-lg transition-all duration-300 shadow-md active:scale-95 text-white"
                                 >
                                     Read Full Story
                                 </Link>
