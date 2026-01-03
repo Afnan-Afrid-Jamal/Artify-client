@@ -29,7 +29,7 @@ const FAQ = () => {
     };
 
     return (
-        <div className="max-w-4xl mx-auto pb-10">
+        <div className="max-w-4xl mx-auto pb-10 px-2">
             <Fade direction="up">
                 <div className="text-center mb-12">
                     <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-purple-500 mb-4">

@@ -82,6 +82,7 @@ const Navbar = () => {
                             {renderNavLink('/home', 'Home', true)}
                             {renderNavLink('/explore-artwork', 'Explore Artworks', true)}
                             {renderNavLink('/about-us', 'About Us', true)}
+                            {renderNavLink('/blogs', 'Blogs', true)}
                             {user && (
                                 <>
                                     {renderNavLink('/add-artwork', 'Add Artwork')}
@@ -117,6 +118,7 @@ const Navbar = () => {
                         {renderNavLink('/home', 'Home')}
                         {renderNavLink('/explore-artwork', 'Explore Artworks')}
                         {renderNavLink('/about-us', 'About Us')}
+                        {renderNavLink('/blogs', 'Blogs')}
                         {user && (
                             <>
                                 {renderNavLink('/add-artwork', 'Add Artwork')}

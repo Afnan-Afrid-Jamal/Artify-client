@@ -25,7 +25,7 @@ const PremiumCollection = () => {
             {premiumData.length === 0 ? (
                 <p className="text-center text-gray-400 text-lg">Loading premium artworks...</p>
             ) : (
-                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
+                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
                     {premiumData.map((artwork) => (
                         <Slide direction='left'>
                             <div

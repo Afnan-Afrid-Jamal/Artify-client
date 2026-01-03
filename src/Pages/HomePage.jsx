@@ -11,6 +11,8 @@ import TopArtists from '../Components/TopArtist';
 // React Awesome Reveal
 import { Fade, Slide, Zoom } from "react-awesome-reveal";
 import FAQ from '../Components/FAQ';
+import HomeBlogs from '../Components/HomeBlogs';
+import SendAnonymousFeedback from '../Components/SendAnonymousFeedback';
 
 const HomePage = () => {
     const latestArtworkData = useLoaderData() || [];
@@ -33,7 +35,7 @@ const HomePage = () => {
                     </h1>
 
 
-                    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-8">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
                         {latestArtworkData.map((eachLatestArtworkdata, index) => (
                             <Zoom key={eachLatestArtworkdata._id?.$oid || eachLatestArtworkdata._id} triggerOnce delay={index * 100}>
                                 <LatestArtworkCard eachLatestArtworkdata={eachLatestArtworkdata} />
@@ -55,6 +57,12 @@ const HomePage = () => {
                         <TopArtists />
                     </Slide>
                 </section>
+                {/* Blogs */}
+                <section className="py-2 md:py-6 lg:py-8">
+                    <Slide direction="up" triggerOnce>
+                        <HomeBlogs />
+                    </Slide>
+                </section>
 
                 {/* 5. Community Highlights / FeatureInfo */}
                 <section className="py-6 md:py-10 lg:py-14">
@@ -67,6 +75,12 @@ const HomePage = () => {
                 <section className="py-4 md:py-10 lg:py-10">
                     <Fade triggerOnce>
                         <FAQ></FAQ>
+                    </Fade>
+                </section>
+                {/* Feedback section */}
+                <section className="py-4 md:py-10 lg:py-10">
+                    <Fade triggerOnce>
+                        <SendAnonymousFeedback />
                     </Fade>
                 </section>
             </div>

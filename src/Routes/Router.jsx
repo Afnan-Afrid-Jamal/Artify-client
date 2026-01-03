@@ -13,6 +13,8 @@ import ErrorPage from "../Pages/ErrorPage";
 import LoadingSpinner from "../Components/LoadingSpinner";
 import PrivateRoute from "./PrivateRoute";
 import AboutUs from "../Pages/AboutUs";
+import Blogs from "../Pages/Blogs";
+import ViewBlogDetails from "../Pages/ViewBlogDetails";
 
 
 
@@ -57,6 +59,16 @@ const router = createBrowserRouter([
             {
                 path: "about-us",
                 element: <AboutUs />,
+
+            },
+            {
+                path: "blogs",
+                element: <Blogs />,
+
+            },
+            {
+                path: "blog-details/:id",
+                element: <ViewBlogDetails />,
 
             },
             {

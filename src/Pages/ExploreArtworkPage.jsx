@@ -10,9 +10,9 @@ const ExploreArtworkPage = () => {
     const [showData, setShowData] = useState([]);
     const [loading, setLoading] = useState(false);
 
-    // Pagination States
+    // Pagination States - 4 column-er jonno 8 ba 12 dewa best
     const [currentPage, setCurrentPage] = useState(1);
-    const itemsPerPage = 6; // Proti page-e 6-ti card dekhabe
+    const itemsPerPage = 8;
 
     useEffect(() => {
         setLoading(true);
@@ -35,7 +35,7 @@ const ExploreArtworkPage = () => {
     const handleSearch = async (event) => {
         event.preventDefault();
         const searchText = event.target.search.value.trim();
-        setCurrentPage(1); // Search korle 1st page-e niye jabe
+        setCurrentPage(1);
 
         if (!searchText) {
             setShowData(allPublicData);
@@ -56,12 +56,17 @@ const ExploreArtworkPage = () => {
     };
 
     const handleFilter = (radioValue) => {
-        setCurrentPage(1); // Filter korle 1st page-e niye jabe
+        setCurrentPage(1);
         if (radioValue === "") {
             setShowData(allPublicData);
             return;
         }
         setShowData(allPublicData.filter(data => data.category === radioValue));
+    };
+
+    const paginate = (pageNumber) => {
+        setCurrentPage(pageNumber);
+        window.scrollTo({ top: 0, behavior: 'smooth' });
     };
 
     return (
@@ -70,7 +75,7 @@ const ExploreArtworkPage = () => {
             {loading ? (
                 <LoadingSpinner />
             ) : (
-                <div className="max-w-11/12 min-h-screen mx-auto px-4 sm:px-6 lg:px-0 py-10 mt-5 md:mt-20 lg:mt-20">
+                <div className="max-w-7xl min-h-screen mx-auto px-4 py-10 mt-5 md:mt-20">
 
                     {/* Title and Search */}
                     <div className="flex flex-col md:flex-row justify-between items-center w-full mx-auto gap-4 md:gap-5 mb-5 md:mb-20 lg:mb-20">
@@ -104,14 +109,14 @@ const ExploreArtworkPage = () => {
                         </form>
                     </div>
 
-                    {/* Grid of Artworks */}
-                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-12">
+
+                    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
                         {currentItems && currentItems.length > 0 ? (
                             currentItems.map(singlePublicData => (
                                 <ExploreArtworkPageCard key={singlePublicData._id} singlePublicData={singlePublicData} />
                             ))
                         ) : (
-                            <p className="text-left text-gray-500 text-xl font-medium col-span-full">No artworks found!</p>
+                            <p className="text-left text-gray-500 text-xl font-medium col-span-full text-center">No artworks found!</p>
                         )}
                     </div>
 
@@ -120,8 +125,8 @@ const ExploreArtworkPage = () => {
                         <div className="flex justify-center items-center mt-16 gap-2">
                             <button
                                 disabled={currentPage === 1}
-                                onClick={() => setCurrentPage(prev => prev - 1)}
-                                className="px-4 py-2 bg-purple-100 text-purple-600 rounded-lg hover:bg-purple-600 hover:text-white disabled:opacity-50 transition-all font-bold"
+                                onClick={() => paginate(currentPage - 1)}
+                                className={`px-4 py-2 rounded-lg font-bold transition-all ${currentPage === 1 ? 'bg-gray-200 text-gray-400 cursor-not-allowed' : 'bg-purple-100 text-purple-600 hover:bg-purple-600 hover:text-white'}`}
                             >
                                 Prev
                             </button>
@@ -129,8 +134,8 @@ const ExploreArtworkPage = () => {
                             {[...Array(totalPages)].map((_, index) => (
                                 <button
                                     key={index}
-                                    onClick={() => setCurrentPage(index + 1)}
-                                    className={`w-10 h-10 rounded-lg font-bold transition-all ${currentPage === index + 1 ? 'bg-purple-600 text-white shadow-lg shadow-purple-200' : 'bg-purple-50 text-purple-600 hover:bg-purple-200'}`}
+                                    onClick={() => paginate(index + 1)}
+                                    className={`w-10 h-10 rounded-lg font-bold transition-all ${currentPage === index + 1 ? 'bg-purple-600 text-white shadow-lg' : 'bg-purple-100 text-purple-600 hover:bg-purple-200'}`}
                                 >
                                     {index + 1}
                                 </button>
@@ -138,8 +143,8 @@ const ExploreArtworkPage = () => {
 
                             <button
                                 disabled={currentPage === totalPages}
-                                onClick={() => setCurrentPage(prev => prev + 1)}
-                                className="px-4 py-2 bg-purple-100 text-purple-600 rounded-lg hover:bg-purple-600 hover:text-white disabled:opacity-50 transition-all font-bold"
+                                onClick={() => paginate(currentPage + 1)}
+                                className={`px-4 py-2 rounded-lg font-bold transition-all ${currentPage === totalPages ? 'bg-gray-200 text-gray-400 cursor-not-allowed' : 'bg-purple-100 text-purple-600 hover:bg-purple-600 hover:text-white'}`}
                             >
                                 Next
                             </button>
