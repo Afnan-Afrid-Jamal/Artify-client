@@ -181,7 +181,7 @@ const ArtworkDetailsPage = () => {
                                 className={`flex-1 bg-white border border-purple-600 hover:bg-purple-50 text-purple-600 font-semibold py-3 rounded-lg shadow-md transition duration-300 break-words hover:cursor-pointer ${isAddFavouritesBtnDisable ? "opacity-30 cursor-not-allowed" : ""}`}
                             >
                                 <FaStar className="inline mr-2" />
-                                {!user ? "Sign in to favorite" : isAddFavouritesBtnDisable ? "Added to Favorites" : "Add to Favorites"}
+                                {!user ? "Login to favorite" : isAddFavouritesBtnDisable ? "Added to Favorites" : "Add to Favorites"}
                             </button>
                         </div>
                     </div>
