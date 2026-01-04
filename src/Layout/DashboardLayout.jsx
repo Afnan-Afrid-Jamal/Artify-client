@@ -7,6 +7,7 @@ import { CgProfile } from 'react-icons/cg';
 import { MdLogout } from 'react-icons/md';
 import { MdOutlineAnalytics } from "react-icons/md";
 import { FaPlus } from 'react-icons/fa';
+import { HiOutlineDatabase } from 'react-icons/hi';
 const DashboardLayout = () => {
 
     const { user, handleLogout } = useContext(AuthContext)
@@ -109,6 +110,17 @@ const DashboardLayout = () => {
                             >
                                 <MdOutlineAnalytics size={24} />
                                 <span>Statistics</span>
+                            </NavLink>
+                        </li>
+                        <li>
+                            <NavLink
+                                to="/dashboard/data-table"
+                                className={({ isActive }) =>
+                                    `py-3 rounded-xl transition-all font-semibold flex items-center gap-3 ${isActive ? 'bg-purple-700 text-white' : 'hover:bg-purple-700'}`
+                                }
+                            >
+                                <HiOutlineDatabase size={24} />
+                                <span>My Data</span>
                             </NavLink>
                         </li>
                         <li>

@@ -18,6 +18,7 @@ import ViewBlogDetails from "../Pages/ViewBlogDetails";
 import DashboardLayout from "../Layout/DashboardLayout";
 import MyProfile from "../Pages/MyProfile";
 import Statistics from "../Pages/Statistics";
+import DashboardTable from "../Components/DashboardTable";
 
 const router = createBrowserRouter([
     {
@@ -77,6 +78,10 @@ const router = createBrowserRouter([
             {
                 index: true,
                 element: <PrivateRoute><MyProfile></MyProfile></PrivateRoute>
+            },
+            {
+                path: "/dashboard/data-table",
+                element: <PrivateRoute><DashboardTable></DashboardTable></PrivateRoute>,
             },
             {
                 path: "/dashboard/add-artwork",

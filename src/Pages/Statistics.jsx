@@ -42,13 +42,13 @@ const Statistics = () => {
                                 cx="50%"
                                 cy="50%"
                                 labelLine={false}
-                                // মোবাইলে ছোট লেবেল এবং বড় স্ক্রিনে বড় লেবেল দেখানোর জন্য
+
                                 label={({ name, percent }) =>
                                     window.innerWidth < 640
                                         ? `${(percent * 100).toFixed(0)}%`
                                         : `${name} ${(percent * 100).toFixed(0)}%`
                                 }
-                                // মোবাইল স্ক্রিনে ছোট রেডিয়াস (60-80) এবং ডেক্সটপে বড় (120-150)
+
                                 outerRadius={window.innerWidth < 640 ? 70 : 130}
                                 fill="#8884d8"
                                 dataKey="value"
