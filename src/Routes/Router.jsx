@@ -49,10 +49,6 @@ const router = createBrowserRouter([
                 element: <RegistrationPage />,
             },
             {
-                path: "add-artwork",
-                element: <PrivateRoute><AddArtworkPage /></PrivateRoute>,
-            },
-            {
                 path: "explore-artwork",
                 element: <ExploreArtworkPage />,
             },
@@ -72,18 +68,6 @@ const router = createBrowserRouter([
                 path: "artwork-details/:id",
                 element: <ArtworkDetailsPage />,
             },
-            {
-                path: "my-gallery",
-                element: <PrivateRoute><MyGalleryPage /></PrivateRoute>,
-            },
-            {
-                path: "my-favourites",
-                element: (
-                    <PrivateRoute>
-                        <MyFavoritesPage />
-                    </PrivateRoute>
-                ),
-            },
         ],
     },
     {
@@ -93,6 +77,10 @@ const router = createBrowserRouter([
             {
                 index: true,
                 element: <PrivateRoute><MyProfile></MyProfile></PrivateRoute>
+            },
+            {
+                path: "/dashboard/add-artwork",
+                element: <PrivateRoute><AddArtworkPage /></PrivateRoute>,
             },
             {
                 path: "/dashboard/my-gallery",

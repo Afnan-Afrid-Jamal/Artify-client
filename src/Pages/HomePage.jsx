@@ -13,6 +13,7 @@ import { Fade, Slide, Zoom } from "react-awesome-reveal";
 import FAQ from '../Components/FAQ';
 import HomeBlogs from '../Components/HomeBlogs';
 import SendAnonymousFeedback from '../Components/SendAnonymousFeedback';
+import CTA from '../Components/CTA';
 
 const HomePage = () => {
     const latestArtworkData = useLoaderData() || [];
@@ -81,6 +82,11 @@ const HomePage = () => {
                 <section className="py-4 md:py-10 lg:py-10">
                     <Fade triggerOnce>
                         <SendAnonymousFeedback />
+                    </Fade>
+                </section>
+                <section className="py-4 md:py-10 lg:py-10">
+                    <Fade triggerOnce>
+                        <CTA />
                     </Fade>
                 </section>
             </div>

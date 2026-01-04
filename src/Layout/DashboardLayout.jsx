@@ -6,6 +6,7 @@ import { AuthContext } from '../Provider/AuthContext';
 import { CgProfile } from 'react-icons/cg';
 import { MdLogout } from 'react-icons/md';
 import { MdOutlineAnalytics } from "react-icons/md";
+import { FaPlus } from 'react-icons/fa';
 const DashboardLayout = () => {
 
     const { user, handleLogout } = useContext(AuthContext)
@@ -53,6 +54,17 @@ const DashboardLayout = () => {
                             >
                                 <IoHomeOutline size={24} />
                                 <span>Homepage</span>
+                            </NavLink>
+                        </li>
+                        <li>
+                            <NavLink
+                                to="/dashboard/add-artwork"
+                                className={({ isActive }) =>
+                                    `py-3 rounded-xl transition-all font-semibold flex items-center gap-3 ${isActive ? 'bg-purple-700 text-white' : 'hover:bg-purple-700'}`
+                                }
+                            >
+                                <FaPlus size={24} />
+                                <span>Add Artwork</span>
                             </NavLink>
                         </li>
                         <li>
