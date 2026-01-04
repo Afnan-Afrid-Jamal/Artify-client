@@ -85,7 +85,7 @@ const Navbar = () => {
                             {renderNavLink('/blogs', 'Blogs', true)}
                             {user && (
                                 <>
-                                    {renderNavLink('/dashboard', 'My Dashboard')}
+                                    {renderNavLink('/dashboard', 'My Dashboard', true)}
                                 </>
                             )}
 
