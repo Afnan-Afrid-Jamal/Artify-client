@@ -1,6 +1,8 @@
 import React, { useContext } from 'react';
 import { AuthContext } from '../Provider/AuthContext';
 import { BiLogOut } from 'react-icons/bi';
+import { LuLayoutDashboard } from 'react-icons/lu';
+import { Link } from 'react-router';
 
 const UserProfileDropdown = () => {
     const { user, handleLogout } = useContext(AuthContext);
@@ -39,6 +41,25 @@ const UserProfileDropdown = () => {
                 </li>
                 <hr className='opacity-20 my-1' />
 
+                <li>
+                    <Link to="/dashboard"
+                        className="
+                            w-full
+                            flex items-center justify-center gap-2
+                            font-semibold
+                            bg-gradient-to-r from-purple-500 to-purple-600 hover:from-purple-600 hover:to-purple-700
+                            text-white
+                            rounded-lg
+                            px-4 py-2
+                            shadow-md hover:shadow-lg
+                            transition-all duration-200
+                            transform hover:-translate-y-0.5
+                        "
+                    >
+                        <LuLayoutDashboard size={15} /> Dashboard
+                    </Link>
+                </li>
+
                 {/* Logout Button */}
                 <li>
                     <button
@@ -60,6 +81,7 @@ const UserProfileDropdown = () => {
                         Logout
                     </button>
                 </li>
+
             </ul>
         </div>
     );

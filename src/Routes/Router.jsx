@@ -12,8 +12,13 @@ import MyFavoritesPage from "../Pages/MyFavoritesPage";
 import ErrorPage from "../Pages/ErrorPage";
 import LoadingSpinner from "../Components/LoadingSpinner";
 import PrivateRoute from "./PrivateRoute";
-
-
+import AboutUs from "../Pages/AboutUs";
+import Blogs from "../Pages/Blogs";
+import ViewBlogDetails from "../Pages/ViewBlogDetails";
+import DashboardLayout from "../Layout/DashboardLayout";
+import MyProfile from "../Pages/MyProfile";
+import Statistics from "../Pages/Statistics";
+import DashboardTable from "../Components/DashboardTable";
 
 const router = createBrowserRouter([
     {
@@ -45,31 +50,60 @@ const router = createBrowserRouter([
                 element: <RegistrationPage />,
             },
             {
-                path: "add-artwork",
-                element: <PrivateRoute><AddArtworkPage /></PrivateRoute>,
-            },
-            {
                 path: "explore-artwork",
                 element: <ExploreArtworkPage />,
-
+            },
+            {
+                path: "about-us",
+                element: <AboutUs />,
+            },
+            {
+                path: "blogs",
+                element: <Blogs />,
+            },
+            {
+                path: "blog-details/:id",
+                element: <ViewBlogDetails />,
             },
             {
                 path: "artwork-details/:id",
-                element: <PrivateRoute><ArtworkDetailsPage /></PrivateRoute>,
+                element: <ArtworkDetailsPage />,
+            },
+        ],
+    },
+    {
+        path: "/dashboard",
+        Component: DashboardLayout,
+        children: [
+            {
+                index: true,
+                element: <PrivateRoute><MyProfile></MyProfile></PrivateRoute>
             },
             {
-                path: "my-gallery",
-                element: <PrivateRoute><MyGalleryPage /></PrivateRoute>,
+                path: "/dashboard/data-table",
+                element: <PrivateRoute><DashboardTable></DashboardTable></PrivateRoute>,
             },
             {
-                path: "my-favourites",
-                element: (
-                    <PrivateRoute>
-                        <MyFavoritesPage />
-                    </PrivateRoute>
-                ),
+                path: "/dashboard/add-artwork",
+                element: <PrivateRoute><AddArtworkPage /></PrivateRoute>,
+            },
+            {
+                path: "/dashboard/my-gallery",
+                element: <PrivateRoute><MyGalleryPage></MyGalleryPage></PrivateRoute>
+            },
+            {
+                path: "/dashboard/my-favorites",
+                element: <PrivateRoute><MyFavoritesPage></MyFavoritesPage></PrivateRoute>
+            },
+            {
+                path: "/dashboard/my-profile",
+                element: <PrivateRoute><MyProfile></MyProfile></PrivateRoute>
+            },
+            {
+                path: "/dashboard/statistics",
+                element: <PrivateRoute><Statistics></Statistics></PrivateRoute>
+            },
 
-            },
         ],
     },
     {
