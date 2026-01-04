@@ -59,7 +59,7 @@ const Statistics = () => {
                             </Pie>
                             <Tooltip
                                 contentStyle={{
-                                    backgroundColor: '#1f2937',
+                                    backgroundColor: '#a78bfa',
                                     border: '1px solid #7c3aed',
                                     borderRadius: '10px',
                                     fontSize: '12px'
